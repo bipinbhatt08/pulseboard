@@ -23,11 +23,6 @@ const userSchema = new Schema({
         minlength: 6,
         select: false
     },
-    role:{
-        type: String,
-        enum: ['customer','seller'],
-        default: 'customer'
-    },
     isVerified:{
         type: Boolean,
         default: false
@@ -48,7 +43,7 @@ const userSchema = new Schema({
         type: String,
         select: false
     },
-    
+
 },{
     timestamps: true
 })

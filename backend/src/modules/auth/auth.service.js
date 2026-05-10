@@ -7,7 +7,7 @@ import cookieParser from 'cookie-parser'
 
 const hashToken =  (token)=>crypto.createHash("sha256").update(token).digest("hex")
 
-const register = async ({email,password,name,role})=>{
+const register = async ({email,password,name})=>{
 
     const existing = await User.findOne({email})
 
@@ -21,7 +21,6 @@ const register = async ({email,password,name,role})=>{
         name,
         email,
         password,
-        role,
         verificationToken:hashedToken
     })
 
@@ -58,7 +57,7 @@ const login = async ({email,password}) => {
         throw ApiError.forbidden("Please verify your email before login")
     }
 
-    const accessToken = generateAccessToken({id: user._id,role: user.role})
+    const accessToken = generateAccessToken({id: user._id})
     const refreshToken = generateRefreshToken({id: user._id})
 
     user.refreshToken = hashToken(refreshToken)
@@ -97,7 +96,7 @@ const refresh = async (token) => {// this is refresh token
         throw ApiError.unAuthorized("Invalid refresh token") 
     }
 
-    const accessToken = generateAccessToken({id:user._id,role: user.role})
+    const accessToken = generateAccessToken({id:user._id})
 
     const refreshToken = generateRefreshToken({id: user._id})
 

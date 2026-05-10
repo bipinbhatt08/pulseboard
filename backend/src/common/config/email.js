@@ -2,7 +2,7 @@ import nodemailer from "nodemailer"
 
 // Create a transporter using SMTP
 const transporter = nodemailer.createTransport({
-  //we use mailtrap
+  
   host: process.env.SMTP_HOST,
   port: process.env.SMTP_PORT || 587,
   auth: {
@@ -17,11 +17,17 @@ const transporter = nodemailer.createTransport({
 
 const sendMail = async(to,subject,html) => {
   
-  await transporter.sendMail({
-    from: `${process.env.SMTP_FROM_EMAIL}`,
-    to,subject,html
-  })
-  console.log("Email send to :",to)
+ try {
+     await transporter.sendMail({
+       from: `${process.env.SMTP_FROM_EMAIL}`,
+       to,subject,html
+     })
+     console.log("Email send to :",to)
+     console.log("SMTP HOST:", process.env.SMTP_HOST);
+console.log("SMTP USER:", process.env.SMTP_USER);
+ } catch (error) {
+    console.log("Email error:",error.message)
+ }
 }
 
 const sendVerificationEmail = async(email,name,token) => {
@@ -31,7 +37,7 @@ const sendVerificationEmail = async(email,name,token) => {
         <body>
           <h2>Email Verification</h2>
           <p>Hello,${name}</p>
-          <p>Click <a href=${url}>here</a> to verify your email.</p>
+          <p>Click <a href=${url}>${url}</a> to verify your email.</p>
         </body>
       </html>
     `

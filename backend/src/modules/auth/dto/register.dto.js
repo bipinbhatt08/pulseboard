@@ -11,8 +11,7 @@ class RegisterDto extends BaseDto {
       .message(
         "Password must contain at least one uppercase letter and one digit",
       )
-      .required(),
-    role: Joi.string().valid("customer", "seller").default("customer"),
+      .required()
   });
 }
 export default RegisterDto
