@@ -7,7 +7,7 @@ import cors from 'cors'
 const app = express()
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: process.env.CLIENT_ID,
     credentials: true  // needed if you're sending cookies/auth headers
 }))
 app.use(express.json())
