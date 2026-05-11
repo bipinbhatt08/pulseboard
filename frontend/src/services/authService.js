@@ -26,5 +26,9 @@ export const authService = {
         const {data} = await api.post('/auth/refresh',{refreshToken:tokenStore.getRefreshKey()})
         tokenStore.set(data)
         return  data
+    },
+    async verifyEmail(token){
+        const {data} = await api.get(`/auth/verify-email/${token}`)
+        return data
     }
 }

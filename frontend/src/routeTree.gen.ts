@@ -9,10 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VerifyEmailRouteImport } from './routes/Verify-email'
 import { Route as RegisterRouteImport } from './routes/Register'
 import { Route as LoginRouteImport } from './routes/Login'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as VerifyEmailTokenRouteImport } from './routes/verify-email/$token'
 
+const VerifyEmailRoute = VerifyEmailRouteImport.update({
+  id: '/Verify-email',
+  path: '/Verify-email',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/Register',
   path: '/Register',
@@ -28,39 +35,70 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VerifyEmailTokenRoute = VerifyEmailTokenRouteImport.update({
+  id: '/verify-email/$token',
+  path: '/verify-email/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/Login': typeof LoginRoute
   '/Register': typeof RegisterRoute
+  '/Verify-email': typeof VerifyEmailRoute
+  '/verify-email/$token': typeof VerifyEmailTokenRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/Login': typeof LoginRoute
   '/Register': typeof RegisterRoute
+  '/Verify-email': typeof VerifyEmailRoute
+  '/verify-email/$token': typeof VerifyEmailTokenRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/Login': typeof LoginRoute
   '/Register': typeof RegisterRoute
+  '/Verify-email': typeof VerifyEmailRoute
+  '/verify-email/$token': typeof VerifyEmailTokenRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/Login' | '/Register'
+  fullPaths:
+    | '/'
+    | '/Login'
+    | '/Register'
+    | '/Verify-email'
+    | '/verify-email/$token'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/Login' | '/Register'
-  id: '__root__' | '/' | '/Login' | '/Register'
+  to: '/' | '/Login' | '/Register' | '/Verify-email' | '/verify-email/$token'
+  id:
+    | '__root__'
+    | '/'
+    | '/Login'
+    | '/Register'
+    | '/Verify-email'
+    | '/verify-email/$token'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
+  VerifyEmailRoute: typeof VerifyEmailRoute
+  VerifyEmailTokenRoute: typeof VerifyEmailTokenRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/Verify-email': {
+      id: '/Verify-email'
+      path: '/Verify-email'
+      fullPath: '/Verify-email'
+      preLoaderRoute: typeof VerifyEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/Register': {
       id: '/Register'
       path: '/Register'
@@ -82,6 +120,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/verify-email/$token': {
+      id: '/verify-email/$token'
+      path: '/verify-email/$token'
+      fullPath: '/verify-email/$token'
+      preLoaderRoute: typeof VerifyEmailTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +134,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
+  VerifyEmailRoute: VerifyEmailRoute,
+  VerifyEmailTokenRoute: VerifyEmailTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

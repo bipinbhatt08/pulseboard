@@ -1,3 +1,4 @@
+import * as react from 'react'
 import { useForm } from "react-hook-form";
 import { authService } from "../services/authService.js";
 import { toast } from "react-toastify";
@@ -5,21 +6,50 @@ import { Link } from "@tanstack/react-router";
 import '../styles/Auth.css';
 
 const Register = () => {
+  const [showPassword,setShowPassword] = react.useState(false)
+  const [success,setSuccess] = react.useState(false) 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { errors, isSubmitting },
   } = useForm({ mode: "onSubmit" });
 
   const submit = async (data) => {
     try {
       await authService.register(data);
       toast.success("Registration successful! Please verify your email.");
+      setSuccess(true)
     } catch (err) {
       console.error("Registration failed:", err);
       toast.error(err.response?.data?.message || "Registration failed. Please try again.");
     }
   };
+
+
+
+
+const handleShowPassword =(e) => {
+    setShowPassword((prev)=>!prev)
+  }
+
+if(success){
+  return <div className="auth-page">
+        <div className="auth-card">
+          <div className="auth-header">
+            <Link to="/" className="auth-logo">Pulse<span>Board</span></Link>
+            <div className="verify-icon verify-icon--success">✓</div>
+            <h1 className="auth-title">Check your inbox</h1>
+            <p className="auth-sub">
+              We sent a verification link to your email address.
+              Click it to activate your account and start using PulseBoard.
+            </p>
+          </div>
+          <p className="auth-footer">
+            Already verified? <Link to="/login">Sign in</Link>
+          </p>
+        </div>
+      </div>
+}
 
   return (
     <div className="auth-page">
@@ -69,9 +99,10 @@ const Register = () => {
 
           <div className="form-field">
             <label className="form-label">Password</label>
+            <div className="input-wrapper">
             <input
-              type="password"
-              placeholder="Min. 6 characters"
+              type={showPassword?"text":"password"}
+              placeholder="password"
               className={errors.password ? "input-error" : ""}
               {...register("password", {
                 required: "Password is required",
@@ -79,13 +110,17 @@ const Register = () => {
                 maxLength: 128,
               })}
             />
+            <button type="button" className="toggle-password" onClick={handleShowPassword}>
+                {showPassword ? "Hide" : "Show"}
+                </button>
+            </div>
             {errors.password && <p className="error-msg">{errors.password.message}</p>}
           </div>
 
           <button
             type="submit"
             className="btn-primary auth-submit"
-            disabled={isSubmitting || isSubmitSuccessful}
+            disabled={isSubmitting}
           >
             {isSubmitting ? "Creating account..." : "Create Account"}
           </button>

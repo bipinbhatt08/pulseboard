@@ -19,7 +19,7 @@ const rootElement = document.getElementById('root')
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
-    <StrictMode>
+    <>
       <RouterProvider router={router} />
       <ToastContainer
         position="top-right"
@@ -30,6 +30,6 @@ if (!rootElement.innerHTML) {
         pauseOnHover
         theme="dark"
       />
-    </StrictMode>,
+    </>,
   )
 }
