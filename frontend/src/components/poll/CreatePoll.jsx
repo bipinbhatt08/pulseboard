@@ -2,8 +2,8 @@ import { useForm } from "react-hook-form";
 import { pollService } from "../../services/pollService";
 import { toast } from "react-toastify";
 import { Link } from "@tanstack/react-router";
-import '../../styles/Auth.css'
-import '../../styles/CreatePoll.css'
+import "../../styles/Auth.css";
+import "../../styles/CreatePoll.css";
 const CreatePoll = () => {
   const {
     register,
@@ -14,6 +14,7 @@ const CreatePoll = () => {
       title: "",
       durationUnit: "",
       durationValue: "",
+      allowAnonymousResponse: false,
     },
   });
 
@@ -75,7 +76,6 @@ const CreatePoll = () => {
                     required: "Unit is required",
                   })}
                 >
-                
                   <option value="minutes">Minutes</option>
                   <option value="hours">Hours</option>
                   <option value="days">Days</option>
@@ -86,6 +86,19 @@ const CreatePoll = () => {
               )}
             </div>
 
+            <div className="form-field toggle-field">
+              <div className="toggle-info">
+                <label className="form-label">Allow Anonymous Responses</label>
+                <p className="text-muted">Let people vote without an account</p>
+              </div>
+              <label className="toggle">
+                <input
+                  type="checkbox"
+                  {...register("allowAnonymousResponse")}
+                />
+                <span className="toggle-slider" />
+              </label>
+            </div>
             <button
               type="submit"
               className="btn-primary auth-submit"
