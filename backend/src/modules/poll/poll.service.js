@@ -1,6 +1,6 @@
 import Poll from './poll.model.js'
 
-const createPoll = async({user,title,durationUnit,durationValue}) => {
+const createPoll = async({user,title,durationUnit,durationValue,allowAnonymousResponse}) => {
 
     const multipliers = {
     minutes: 60 * 1000,
@@ -13,7 +13,7 @@ const createPoll = async({user,title,durationUnit,durationValue}) => {
     durationValue * multipliers[durationUnit]
     )
 
-    const poll = await Poll.create({user,expiresAt,title})
+    const poll = await Poll.create({user,expiresAt,title,allowAnonymousResponse})
 
     return poll
 }

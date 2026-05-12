@@ -17,6 +17,14 @@ const pollSchema = new mongoose.Schema({
         type: Date,
         required:[true,"Expiration time is required"]
 
+    },
+    isPublished: {
+      type: Boolean,
+      default: false
+    },
+    allowAnonymousResponse:{
+        type:Boolean,
+        default:false
     }
 
 },{timestamps: true})

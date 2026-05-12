@@ -12,7 +12,9 @@ class CreatePollDto extends BaseDto {
 
     durationUnit: Joi.string()
       .valid("minutes", "hours", "days")
-      .required()
+      .required(),
+    allowAnonymousResponse: Joi.boolean().default(false) 
+
   });
 }
 
