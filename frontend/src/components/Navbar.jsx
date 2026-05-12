@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import '../styles/Navbar.css'
 
-export default function Navbar({ isLoggedIn, user, onLogout }) {
+export default function Navbar({  user }) {
     return (
         <nav className="navbar">
             <div className="navbar-inner">
@@ -10,17 +10,19 @@ export default function Navbar({ isLoggedIn, user, onLogout }) {
                 </Link>
 
                 <div className="navbar-actions">
-                    {isLoggedIn ? (
+                    {user ? (
                         <>
                             <Link to="/poll/create" className="btn-create">
                                 + Create Poll
                             </Link>
+                             
                             <div className="navbar-avatar" title={user?.name}>
                                 {user?.name?.[0]?.toUpperCase()}
                             </div>
-                            <button className="btn-ghost" onClick={onLogout}>
-                                Logout
+                            <button className="">
+                                logout
                             </button>
+                           
                         </>
                     ) : (
                         <>

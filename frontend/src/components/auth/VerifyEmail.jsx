@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { authService } from '../services/authService'
+import { authService } from '../../services/authService'
 import { useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import '../styles/Auth.css'
-import '../styles/Verify-email.css'
+import '../../styles/Auth.css'
+import '../../styles/Verify-email.css'
 
 const VerifyEmail = ({ token }) => {
   const [status, setStatus] = useState('loading') // 'loading' | 'success' | 'error'

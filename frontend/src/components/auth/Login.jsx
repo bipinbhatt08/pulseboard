@@ -1,12 +1,13 @@
 import { useForm } from "react-hook-form";
-import { authService } from "../services/authService.js";
+import { authService } from "../../services/authService.js";
 import { toast } from "react-toastify";
-import { Link } from "@tanstack/react-router";
-import '../styles/Auth.css';
+import { Link, Navigate, useNavigate } from "@tanstack/react-router";
+import '../../styles/Auth.css';
 import { useState } from "react";
 
 const Login = () => {
   const [showPassword,setShowPassword] = useState(false)
+  const navigate = useNavigate()
 
   const {
     register,
@@ -18,6 +19,7 @@ const Login = () => {
     try {
       const res = await authService.login(data);
       toast.success(res?.message);
+      navigate({to:'/'})
     } catch (err) {
       console.error("Login failed:", err);
       toast.error(err.response?.data?.message || "Login failed. Please try again.");
