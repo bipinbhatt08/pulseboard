@@ -6,5 +6,4 @@ import * as contoller from './poll.controller.js'
 const router = express.Router()
 
 router.post('/',authenticate,validate(CreatePollDto),contoller.createPoll)
-
 export default router

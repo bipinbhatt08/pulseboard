@@ -2,6 +2,7 @@ import cookieParser from "cookie-parser"
 import express from "express"
 import authRoute from './modules/auth/auth.routes.js'
 import pollRoute from './modules/poll/poll.route.js'
+import questionRoute from './modules/question/question.route.js'
 import globalErrorHandler from "./common/middleware/error.middleware.js"
 import cors from 'cors'
 const app = express()
@@ -16,6 +17,7 @@ app.use(cookieParser())
 
 app.use('/api/auth',authRoute)
 app.use('/api/poll',pollRoute)
+app.use('/api/poll',questionRoute)
 
 
 app.use(globalErrorHandler)

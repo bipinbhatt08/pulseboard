@@ -17,6 +17,9 @@ const createPoll = async({user,title,durationUnit,durationValue}) => {
 
     return poll
 }
+const getPollById = async(id) =>{
+    const poll = await Poll.findById(id)
+}
 
 
-export {createPoll}
+export {createPoll,getPollById}
