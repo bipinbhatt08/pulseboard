@@ -9,25 +9,15 @@ const register = async(req,res) => {
 const login = async(req,res) => {
     const  {user, accessToken,refreshToken} = await authService.login(req.body)
 
-    res.cookie("refreshToken",refreshToken,{
-        httpOnly: true,
-        secure: true,
-        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-    })
-    
-    ApiResponse.ok(res,"Login successfull",{user,accessToken})
+    ApiResponse.ok(res,"Login successfull",{user,accessToken,refreshToken})
 
 }
 
 const refreshToken = async(req,res) =>{
     const token = req.cookies?.refreshToken;
     const {accessToken,refreshToken} = await authService.refresh(token)
-    res.cookie("refreshToken",refreshToken,{
-        httpOnly: true,
-        secure: true,
-        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-    })
-    ApiResponse.ok(res, "Token refreshed", { accessToken });
+
+    ApiResponse.ok(res, "Token refreshed", { accessToken,refreshToken});
 }
 
 const forgotPassword = async(req,res) =>{
@@ -50,7 +40,6 @@ const logout = async(req,res) => {
 }
 
 const getMe = async(req,res) => {
-
     const user = await authService.getMe(req.user.id)
     ApiResponse.ok(res,"User profile",user)
 }

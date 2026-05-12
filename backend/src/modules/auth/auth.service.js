@@ -45,13 +45,13 @@ const register = async ({email,password,name})=>{
 const login = async ({email,password}) => {
     const user =  await User.findOne({email}).select('+password')
     if(!user){
-         throw ApiError.unAuthorized("Bad credentials")
+         throw ApiError.badRequest("Bad credentials")
     }
 
     //password checking
 
    const isMatch = await user.comparePassword(password)
-   if(!isMatch) throw ApiError.unAuthorized("Invalid email or password")
+   if(!isMatch) throw ApiError.badRequest("Invalid email or password")
 
     if(!user.isVerified){
         throw ApiError.forbidden("Please verify your email before login")

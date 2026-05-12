@@ -32,6 +32,7 @@ api.interceptors.request.use((config)=>{
       originalRequest._retry = true
 
       const { accessToken } = await authService.refresh()
+      tokenStore.set(accessToken) 
 
       originalRequest.headers.Authorization =
         `Bearer ${accessToken}`

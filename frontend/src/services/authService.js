@@ -6,12 +6,12 @@ export const authService = {
 
     async register({email,name,password}){
         const {data} = await api.post('/auth/register',{name,email,password})
-        tokenStore.set(data)
+        tokenStore.set(data.data)
         return data
     },
     async login({email,password}){
         const {data} = await api.post('/auth/login',{email,password})
-        tokenStore.set(data)
+        tokenStore.set(data.data)
         return data
     },
     async logout(){
@@ -19,16 +19,16 @@ export const authService = {
         tokenStore.clear()
     },
     async getProfile(){
-        const {data} = await api.get('/user/profile')
-        return data.user
+        const {data} = await api.get('/auth/me')
+        return data.data.user
     },
     async refresh(){
         const {data} = await api.post('/auth/refresh',{refreshToken:tokenStore.getRefreshKey()})
-        tokenStore.set(data)
+        tokenStore.set(data.data)
         return  data
     },
     async verifyEmail(token){
         const {data} = await api.get(`/auth/verify-email/${token}`)
-        return data
+        return data.data
     }
 }
