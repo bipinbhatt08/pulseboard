@@ -17,4 +17,8 @@ export const getQuestionById = async(req,res)=>{
     return ApiResponse.ok(res,"Question fetched successfully",question)
 }
 
+export const getQuestionsByPoll = async(req,res)=>{
+    const questions = await questionService.getQuestionsByPoll(req.params.id)
+    return ApiResponse.ok(res,"Questions fetehed successfully",questions)
+}
 

@@ -7,9 +7,9 @@ import CastVoteDto from './dto/castVote.dto.js'
 const router = Router()
 
 //todo,, authenticate optionally.. if no token sent let them vote(annonymous)
-router.post('/votes', validate(CastVoteDto), controller.castVote)
+router.post('/', validate(CastVoteDto), controller.castVote)
 
 // only poll creator should see votes
-router.get('/polls/:pollId/votes', authenticate, controller.getVotesByPoll)
+router.get('/polls/:pollId/', authenticate, controller.getVotesByPoll)
 
 export default router

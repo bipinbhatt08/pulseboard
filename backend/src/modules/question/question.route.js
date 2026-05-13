@@ -9,5 +9,6 @@ const router = Router()
 
 router.post('/', authenticate, validate(AddQuestionDto), controller.addQuestion)
 router.get('/:id', controller.getQuestionById)
+router.get('/poll/:pollid',controller.getQuestionsByPoll)
 
 export default router

@@ -1,6 +1,6 @@
 import * as react from 'react'
 import { useForm } from "react-hook-form";
-import { authService } from "../services/authService.js";
+import { authService } from "../../services/authService.js";
 import { toast } from "react-toastify";
 import { Link } from "@tanstack/react-router";
 import '../../styles/Auth.css';
