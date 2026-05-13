@@ -19,10 +19,10 @@ app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 
 app.use('/api/auth',authRouter)
-app.use('/api/poll',pollRouter)
-app.use('/api/poll',questionRouter)
-app.use('/api',voteRouter)
-app.use('/api',optionRouter)
+app.use('/api/polls',pollRouter)
+app.use('/api/questions',questionRouter)
+app.use('/api/votes',voteRouter)
+app.use('/api/options',optionRouter)
 
 
 app.use(globalErrorHandler)

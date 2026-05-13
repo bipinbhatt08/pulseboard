@@ -4,7 +4,7 @@ import * as questionService from './question.service.js'
 export const addQuestion = async(req,res)=>{
 
     const question = await questionService.addQuestion({
-        poll:req.params.pollId,
+        poll:req.body.pollId,
         text: req.body.text,
         userId: req.user.id
     })
@@ -16,3 +16,5 @@ export const getQuestionById = async(req,res)=>{
     const question = await questionService.getQuestionById(req.params.id)
     return ApiResponse.ok(res,"Question fetched successfully",question)
 }
+
+
