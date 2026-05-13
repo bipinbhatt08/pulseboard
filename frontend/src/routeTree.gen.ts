@@ -13,10 +13,11 @@ import { Route as VerifyEmailRouteImport } from './routes/Verify-email'
 import { Route as RegisterRouteImport } from './routes/Register'
 import { Route as LoginRouteImport } from './routes/Login'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as PollIndexRouteImport } from './routes/poll/index'
 import { Route as VerifyEmailTokenRouteImport } from './routes/verify-email/$token'
 import { Route as PollCreateRouteImport } from './routes/poll/create'
+import { Route as PollPollIdIndexRouteImport } from './routes/poll/$pollId/index'
 import { Route as PollPollIdQuestionRouteImport } from './routes/poll/$pollId/question'
+import { Route as QuestionQuestionIdOptionsAddRouteImport } from './routes/question/$questionId/options/add'
 
 const VerifyEmailRoute = VerifyEmailRouteImport.update({
   id: '/Verify-email',
@@ -38,11 +39,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PollIndexRoute = PollIndexRouteImport.update({
-  id: '/poll/',
-  path: '/poll/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const VerifyEmailTokenRoute = VerifyEmailTokenRouteImport.update({
   id: '/verify-email/$token',
   path: '/verify-email/$token',
@@ -53,11 +49,22 @@ const PollCreateRoute = PollCreateRouteImport.update({
   path: '/poll/create',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PollPollIdIndexRoute = PollPollIdIndexRouteImport.update({
+  id: '/poll/$pollId/',
+  path: '/poll/$pollId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PollPollIdQuestionRoute = PollPollIdQuestionRouteImport.update({
   id: '/poll/$pollId/question',
   path: '/poll/$pollId/question',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuestionQuestionIdOptionsAddRoute =
+  QuestionQuestionIdOptionsAddRouteImport.update({
+    id: '/question/$questionId/options/add',
+    path: '/question/$questionId/options/add',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -66,8 +73,9 @@ export interface FileRoutesByFullPath {
   '/Verify-email': typeof VerifyEmailRoute
   '/poll/create': typeof PollCreateRoute
   '/verify-email/$token': typeof VerifyEmailTokenRoute
-  '/poll/': typeof PollIndexRoute
   '/poll/$pollId/question': typeof PollPollIdQuestionRoute
+  '/poll/$pollId/': typeof PollPollIdIndexRoute
+  '/question/$questionId/options/add': typeof QuestionQuestionIdOptionsAddRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -76,8 +84,9 @@ export interface FileRoutesByTo {
   '/Verify-email': typeof VerifyEmailRoute
   '/poll/create': typeof PollCreateRoute
   '/verify-email/$token': typeof VerifyEmailTokenRoute
-  '/poll': typeof PollIndexRoute
   '/poll/$pollId/question': typeof PollPollIdQuestionRoute
+  '/poll/$pollId': typeof PollPollIdIndexRoute
+  '/question/$questionId/options/add': typeof QuestionQuestionIdOptionsAddRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -87,8 +96,9 @@ export interface FileRoutesById {
   '/Verify-email': typeof VerifyEmailRoute
   '/poll/create': typeof PollCreateRoute
   '/verify-email/$token': typeof VerifyEmailTokenRoute
-  '/poll/': typeof PollIndexRoute
   '/poll/$pollId/question': typeof PollPollIdQuestionRoute
+  '/poll/$pollId/': typeof PollPollIdIndexRoute
+  '/question/$questionId/options/add': typeof QuestionQuestionIdOptionsAddRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -99,8 +109,9 @@ export interface FileRouteTypes {
     | '/Verify-email'
     | '/poll/create'
     | '/verify-email/$token'
-    | '/poll/'
     | '/poll/$pollId/question'
+    | '/poll/$pollId/'
+    | '/question/$questionId/options/add'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -109,8 +120,9 @@ export interface FileRouteTypes {
     | '/Verify-email'
     | '/poll/create'
     | '/verify-email/$token'
-    | '/poll'
     | '/poll/$pollId/question'
+    | '/poll/$pollId'
+    | '/question/$questionId/options/add'
   id:
     | '__root__'
     | '/'
@@ -119,8 +131,9 @@ export interface FileRouteTypes {
     | '/Verify-email'
     | '/poll/create'
     | '/verify-email/$token'
-    | '/poll/'
     | '/poll/$pollId/question'
+    | '/poll/$pollId/'
+    | '/question/$questionId/options/add'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -130,8 +143,9 @@ export interface RootRouteChildren {
   VerifyEmailRoute: typeof VerifyEmailRoute
   PollCreateRoute: typeof PollCreateRoute
   VerifyEmailTokenRoute: typeof VerifyEmailTokenRoute
-  PollIndexRoute: typeof PollIndexRoute
   PollPollIdQuestionRoute: typeof PollPollIdQuestionRoute
+  PollPollIdIndexRoute: typeof PollPollIdIndexRoute
+  QuestionQuestionIdOptionsAddRoute: typeof QuestionQuestionIdOptionsAddRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -164,13 +178,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/poll/': {
-      id: '/poll/'
-      path: '/poll'
-      fullPath: '/poll/'
-      preLoaderRoute: typeof PollIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/verify-email/$token': {
       id: '/verify-email/$token'
       path: '/verify-email/$token'
@@ -185,11 +192,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PollCreateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/poll/$pollId/': {
+      id: '/poll/$pollId/'
+      path: '/poll/$pollId'
+      fullPath: '/poll/$pollId/'
+      preLoaderRoute: typeof PollPollIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/poll/$pollId/question': {
       id: '/poll/$pollId/question'
       path: '/poll/$pollId/question'
       fullPath: '/poll/$pollId/question'
       preLoaderRoute: typeof PollPollIdQuestionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/question/$questionId/options/add': {
+      id: '/question/$questionId/options/add'
+      path: '/question/$questionId/options/add'
+      fullPath: '/question/$questionId/options/add'
+      preLoaderRoute: typeof QuestionQuestionIdOptionsAddRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -202,8 +223,9 @@ const rootRouteChildren: RootRouteChildren = {
   VerifyEmailRoute: VerifyEmailRoute,
   PollCreateRoute: PollCreateRoute,
   VerifyEmailTokenRoute: VerifyEmailTokenRoute,
-  PollIndexRoute: PollIndexRoute,
   PollPollIdQuestionRoute: PollPollIdQuestionRoute,
+  PollPollIdIndexRoute: PollPollIdIndexRoute,
+  QuestionQuestionIdOptionsAddRoute: QuestionQuestionIdOptionsAddRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

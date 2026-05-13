@@ -18,6 +18,7 @@ const AddQuestion = ({pollId}) => {
 
   const submit = async (data) => {
     try {
+        console.log(data)
       const res = await questionService.addQuestion({...data,poll:pollId})
       toast.success(res?.message);
       console.log(res.data);

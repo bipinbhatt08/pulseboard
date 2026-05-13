@@ -1,8 +1,8 @@
 import { api } from "./api.js"
 export const questionService = {
     
-    async addQuestion({question,pollId}){
-        const {data} = await api.post('/poll/${pollId}/question',{text:question,poll:pollId})
+    async addQuestion({text,poll}){
+        const {data} = await api.post(`/poll/${poll}/question`,{text:text,poll})
         return data
     }
 }
