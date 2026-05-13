@@ -21,3 +21,7 @@ export const addQuestion = async({poll,text,userId})=>{
     return question
 
 }
+
+export const questionExists = async(id)=>{
+    return await Question.findById(id).populate('poll')
+}
