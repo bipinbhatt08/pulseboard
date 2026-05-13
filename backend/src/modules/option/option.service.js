@@ -28,3 +28,13 @@ export const incrementVoteCount = async (optionId,session=null) => {
     if (!option) throw ApiError.notfound("Option not found")
     return option
 }
+export const getOptionsByQuestion = async (questionId) => {
+    const options = await Option.find({ question: questionId }).lean()
+    return options
+}
+
+export const getOptionById = async (id) => {
+    const option = await Option.findById(id).lean()
+    if (!option) throw ApiError.notfound("Option not found")
+    return option
+}

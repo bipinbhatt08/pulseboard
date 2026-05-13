@@ -5,12 +5,36 @@ import ApiError from '../../common/utils/api-error.js'
 
 export const castVote = async ({ poll, question, option, user, anonymousId }) => {
 
+
+   // in this check if poll exist , question exist option exist and poll is not expired
+
+    const pollExists = await pollService.getPollById(poll)
+    if (!pollExists) throw ApiError.notfound("Poll not found")
+
+    if (new Date() > new Date(pollExists.expiresAt)) {
+        throw ApiError.badRequest("Poll has expired, no longer accepting votes")
+    }
+
+    const questionExists = await questionService.getQuestionById(question)
+    if (!questionExists) throw ApiError.notfound("Question not found")
+
+    const optionExists = await optionService.getOptionById(option)
+    if (!optionExists) throw ApiError.notfound("Option not found")
+
+   
+    if (optionExists.question.toString() !== question.toString()) {
+        throw ApiError.badRequest("Option does not belong to this question")
+    }
+
+
+
     // 1. check if already voted
     const alreadyVoted = await Vote.findOne(
         user ? { user, question } : { anonymousId, question }
     )
     if (alreadyVoted) throw ApiError.conflict("You have already voted on this question")
 
+    
     // 2. create vote + increment count atomically
     const session = await mongoose.startSession()
     session.startTransaction()

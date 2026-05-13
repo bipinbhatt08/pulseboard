@@ -7,5 +7,7 @@ import CreateOptionDto from './dto/createOption.dto.js'
 const router = Router()
 
 router.post('/questions/:questionId/options', authenticate, validate(CreateOptionDto), controller.createOption)
+router.get('/questions/:questionId/options', controller.getOptionsByQuestion)
+router.get('/questions/:questionId/options/:optionId', controller.getOptionById)
 
 export default router

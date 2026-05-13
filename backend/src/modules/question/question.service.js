@@ -21,6 +21,16 @@ export const addQuestion = async({poll,text,userId})=>{
     return question
 
 }
+export const getQuestionsByPoll = async (pollId) => {
+    const questions = await Question.find({ poll: pollId }).lean()
+    return questions
+}
+
+export const getQuestionById = async (id) => {
+    const question = await Question.findById(id).lean()
+    if (!question) throw ApiError.notfound("Question not found")
+    return question
+}
 
 export const questionExists = async(id)=>{
     return await Question.findById(id).populate('poll')

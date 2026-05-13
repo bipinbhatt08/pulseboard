@@ -6,3 +6,14 @@ export const createOption = async(req,res) =>{
     const option = await optionService.createOption({...req.body,user})
     return ApiResponse.created(res,"Option created successfully",option)
 }
+export const getOptionsByQuestion = async (req, res) => {
+    const { questionId } = req.params
+    const options = await optionService.getOptionsByQuestion(questionId)
+    return ApiResponse.success(res, "Options fetched successfully", options)
+}
+
+export const getOptionById = async (req, res) => {
+    const { optionId } = req.params
+    const option = await optionService.getOptionById(optionId)
+    return ApiResponse.success(res, "Option fetched successfully", option)
+}

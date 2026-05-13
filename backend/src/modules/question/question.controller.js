@@ -9,5 +9,10 @@ export const addQuestion = async(req,res)=>{
         userId: req.user.id
     })
 
-    ApiResponse.created(res, "Question added successfully.",question)
+    return ApiResponse.created(res, "Question added successfully.",question)
 } 
+
+export const getQuestionById = async(req,res)=>{
+    const question = await questionService.getQuestionById(req.params.id)
+    return ApiResponse.ok(res,"Question fetched successfully",question)
+}
