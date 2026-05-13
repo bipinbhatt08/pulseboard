@@ -15,6 +15,9 @@ const globalErrorHandler = (err, req, res, next) => {
     }else if(err.name === "CastError"){
         message = "Invalid id format."
         statusCode = 400
+    }else if(err.name === "TokenExpiredError"){
+        message = "Session expired! please login again"
+        statusCode = 403
     }
     res.status(statusCode).json({ 
         message,

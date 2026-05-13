@@ -6,6 +6,6 @@ import * as controller from './question.controller.js'
 
 const router = Router()
 
-router.post('/:pollId/questions', authenticate, validate(AddQuestionDto), controller.addQuestion)
+router.post('/:pollId/question', authenticate, validate(AddQuestionDto), controller.addQuestion)
 
 export default router
