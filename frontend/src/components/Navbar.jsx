@@ -1,8 +1,18 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import '../styles/Navbar.css'
+import { useState } from 'react'
+import { authService } from '../services/authService'
 
 export default function Navbar({  user }) {
+    const navigate = useNavigate()
+    const [showConfirm,setShowConfirm] = useState(false)
+    const handleLogout = async() =>{
+        await authService.logout()
+        setShowConfirm(false)
+        navigate({to:'/login'})
+    }
     return (
+        <>
         <nav className="navbar">
             <div className="navbar-inner">
                 <Link to="/" className="navbar-logo">
@@ -19,7 +29,7 @@ export default function Navbar({  user }) {
                             <div className="navbar-avatar" title={user?.name}>
                                 {user?.name?.[0]?.toUpperCase()}
                             </div>
-                            <button className="">
+                            <button className=""onClick={()=>setShowConfirm(true)}>
                                 logout
                             </button>
                            
@@ -33,5 +43,24 @@ export default function Navbar({  user }) {
                 </div>
             </div>
         </nav>
+
+        {showConfirm && (
+                <div className="modal-overlay" onClick={() => setShowConfirm(false)}>
+                    <div className="modal-card" onClick={e => e.stopPropagation()}>
+                        <h3 className="modal-title">Log out?</h3>
+                        <p className="modal-sub">Are you sure you want to log out of PulseBoard?</p>
+                        <div className="modal-actions">
+                            <button className="modal-btn-cancel" onClick={() => setShowConfirm(false)}>
+                                Cancel
+                            </button>
+                            <button className="modal-btn-confirm" onClick={handleLogout}>
+                                Yes, Log out
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+         </>
     )
+
 }

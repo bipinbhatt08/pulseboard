@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import '../../styles/Auth.css'
 import '../../styles/CreatePoll.css'
 import { questionService } from "../../services/questionService";
 
 const AddQuestion = ({pollId}) => {
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -21,6 +22,7 @@ const AddQuestion = ({pollId}) => {
         console.log(data)
       const res = await questionService.addQuestion({...data,poll:pollId})
       toast.success(res?.message);
+      navigate({to:`/question/${res.data._id}/options/add`,search:{pollId: res.data.poll}})
       console.log(res.data);
     } catch (error) {
       toast.error(error.response?.data?.message || "Question addition failed");

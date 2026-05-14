@@ -1,14 +1,15 @@
 import { useForm } from "react-hook-form";
 import { pollService } from "../../services/pollService";
 import { toast } from "react-toastify";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import "../../styles/Auth.css";
 import "../../styles/CreatePoll.css";
 const CreatePoll = () => {
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitted, isSubmitting },
+    formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
       title: "",
@@ -22,9 +23,11 @@ const CreatePoll = () => {
     try {
       const res = await pollService.createPoll(data);
       toast.success(res?.message);
+      const pollId = res.data._id
+      navigate({ to: `/poll/${pollId}/questions/add` })  // ← this
       console.log(res.data);
     } catch (error) {
-      toast.error(err.response?.data?.message || "Poll creation failed");
+      toast.error(error.response?.data?.message || "Poll creation failed");
       console.log(error);
     }
   };

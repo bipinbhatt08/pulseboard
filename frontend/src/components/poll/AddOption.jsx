@@ -4,9 +4,8 @@ import { Link, useNavigate } from "@tanstack/react-router"
 import { optionService } from "../../services/optionService"
 import '../../styles/Auth.css'
 
-const AddOption = ({ questionId, pollId }) => {
+const AddOption = ({ questionId ,pollId}) => {
     const navigate = useNavigate()
-
     const {
         register,
         handleSubmit,
@@ -63,7 +62,7 @@ const AddOption = ({ questionId, pollId }) => {
                     <button
                         type="button"
                         className="btn-ghost auth-submit done-btn"
-                        onClick={() => navigate({ to: `/poll/${pollId}/question/add` })}
+                        onClick={() => navigate({ to: `/poll/${pollId}/questions/add` })}
                     >
                         Done — Add Another Question
                     </button>
