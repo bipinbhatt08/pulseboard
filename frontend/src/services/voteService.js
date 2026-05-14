@@ -1,7 +1,8 @@
 import { api } from "./api.js";
 
-export default voteService = {
-    async casteVote(){
+export const voteService = {
+    async casteVote({poll, question, option, anonymousId }){
+        
         const {data} = await api.post('/votes',{poll, question, option, anonymousId })
         return data
     },

@@ -1,8 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
-
+import PollVote from '../../../components/poll/PollVote.jsx'
 export const Route = createFileRoute('/poll/$pollId/')({
   component: () => {
-    const { id } = Route.useParams()
-    return <>HELO</>
+        const { pollId } = Route.useParams()
+
+    return <PollVote pollId={pollId} />
   }
 })

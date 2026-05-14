@@ -16,20 +16,24 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--border);
 }
 
 .poll-title {
     font-family: 'Sora', sans-serif;
-    font-size: 26px;
+    font-size: clamp(22px, 4vw, 32px);
     font-weight: 700;
     color: var(--text-primary);
     letter-spacing: -0.5px;
+    line-height: 1.2;
 }
 
 .poll-meta {
     display: flex;
     align-items: center;
     gap: var(--space-md);
+    flex-wrap: wrap;
 }
 
 .poll-badge {
@@ -40,11 +44,6 @@
     background: var(--primary-light);
     color: var(--primary);
     border: 1px solid rgba(79, 126, 247, 0.25);
-}
-
-.poll-expiry {
-    font-size: 12px;
-    color: var(--text-muted);
 }
 
 /* Questions */
@@ -62,6 +61,11 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
+    transition: border-color 0.2s;
+}
+
+.poll-question-card:has(.poll-option--selected) {
+    border-color: rgba(79, 126, 247, 0.3);
 }
 
 .poll-question-header {
@@ -73,14 +77,14 @@
 
 .poll-question-number {
     font-family: 'Sora', sans-serif;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     color: var(--primary);
     background: var(--primary-light);
     padding: 2px 8px;
     border-radius: 4px;
     flex-shrink: 0;
-    margin-top: 2px;
+    margin-top: 3px;
 }
 
 .poll-question-text {
@@ -98,7 +102,7 @@
     padding: 2px 7px;
     border-radius: 4px;
     flex-shrink: 0;
-    margin-top: 2px;
+    margin-top: 3px;
 }
 
 /* Options */
@@ -120,13 +124,14 @@
     font-size: 14px;
     text-align: left;
     cursor: pointer;
-    transition: border-color 0.2s, background 0.2s, color 0.2s;
+    transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.1s;
     width: 100%;
 }
 
 .poll-option:hover {
     border-color: var(--primary);
     color: var(--text-primary);
+    transform: translateX(2px);
 }
 
 .poll-option--selected {
@@ -147,6 +152,7 @@
 .poll-option--selected .poll-option-dot {
     border-color: var(--primary);
     background: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 126, 247, 0.15);
 }
 
 /* Submit */
@@ -154,6 +160,7 @@
     width: 100%;
     padding: 13px;
     font-size: 15px;
+    font-family: 'Sora', sans-serif;
 }
 
 /* Center states */
@@ -165,12 +172,6 @@
     justify-content: center;
     gap: var(--space-md);
     text-align: center;
-}
-
-.poll-loading-text,
-.poll-error-text {
-    color: var(--text-secondary);
-    font-size: 14px;
 }
 
 .poll-thanks-title {
