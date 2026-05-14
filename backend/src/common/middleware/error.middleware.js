@@ -18,6 +18,9 @@ const globalErrorHandler = (err, req, res, next) => {
     }else if(err.name === "TokenExpiredError"){
         message = "Session expired! please login again"
         statusCode = 403
+    }else if(err.name === 'MongoServerError'){
+        message = "Duplicate Error",
+        statusCode = 409
     }
     res.status(statusCode).json({ 
         message,
