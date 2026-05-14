@@ -12,5 +12,5 @@ export const castVote = async (req, res) => {
 export const getVotesByPoll = async (req, res) => {
     const { pollId } = req.params
     const votes = await voteService.getVotesByPoll(pollId)
-    ApiResponse.success(res, "Votes fetched successfully", votes)
+    ApiResponse.ok(res, "Votes fetched successfully", votes)
 }

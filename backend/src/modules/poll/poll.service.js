@@ -2,6 +2,7 @@ import Poll from './poll.model.js'
 import * as questionService from '../question/question.service.js'
 import * as voteService from '../vote/vote.service.js'
 import * as optionService from '../option/option.service.js'
+import ApiError from '../../common/utils/api-error.js'
 
 const createPoll = async({user,title,durationUnit,durationValue,allowAnonymousResponse}) => {
 

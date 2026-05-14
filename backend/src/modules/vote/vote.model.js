@@ -31,12 +31,11 @@ voteSchema.index(
 
 
 
-voteSchema.pre("save", function (next) {
+voteSchema.pre("save", function () {
   if (!this.user && !this.anonymousId) {
-    return next(new Error("Either user or anonymousId is required"));
+    throw new Error("Either user or anonymousId is required")
   }
-  next();
-});
+})
 
 
 

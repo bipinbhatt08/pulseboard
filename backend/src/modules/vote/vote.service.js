@@ -2,6 +2,8 @@ import mongoose from 'mongoose'
 import Vote from './vote.model.js'
 import * as optionService from '../option/option.service.js'
 import ApiError from '../../common/utils/api-error.js'
+import * as pollService from '../poll/poll.service.js'
+import * as questionService from '../question/question.service.js'
 
 export const castVote = async ({ poll, question, option, user, anonymousId }) => {
 
