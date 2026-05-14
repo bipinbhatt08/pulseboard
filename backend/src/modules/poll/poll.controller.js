@@ -11,8 +11,12 @@ const createPoll = async(req,res) =>{
 }
 
 const getAllPolls = async (req, res) => {
-    const { offset = 0, limit = 10 } = req.query
-    const { polls, total } = await pollService.getAllPolls({ offset: Number(offset), limit: Number(limit) })
+    const { offset = 0, limit = 10, filter='all'} = req.query
+    const { polls, total } = await pollService.getAllPolls({
+        offset: Number(offset),
+        limit: Number(limit),
+        filter
+    })
     ApiResponse.ok(res, "Polls fetched successfully", { polls, total })
 }
 
@@ -24,7 +28,7 @@ const getPollWithQuestions = async (req, res) => {
 
 const getPollAnalytics = async (req, res) => {
     const { pollId } = req.params
-    const analytics = await pollService.getPollAnalytics(pollId)
+    const analytics = await pollService.getPollAnylytics(pollId)
     ApiResponse.ok(res, "Analytics fetched successfully", analytics)
 }
 
@@ -33,5 +37,25 @@ const publishPoll = async (req, res) => {
     const poll = await pollService.publishPoll(pollId, req.user.id)
     ApiResponse.ok(res, "Poll published successfully", poll)
 }
+const getPollsByUserId = async (req, res) => {
 
-export {createPoll,getAllPolls,getPollAnalytics,getPollWithQuestions,publishPoll}
+    const userId= req.user.id
+
+    const {offset = 0,limit = 10} = req.query
+
+    const { polls, total } =
+        await pollService.getPollsByUserId(
+            userId,
+            {
+                offset: Number(offset),
+                limit: Number(limit)
+            }
+        )
+
+    ApiResponse.ok(
+        res,
+        "User polls fetched successfully",
+        { polls, total }
+    )
+}
+export {createPoll,getAllPolls,getPollAnalytics,getPollWithQuestions,publishPoll,getPollsByUserId}

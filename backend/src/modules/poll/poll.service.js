@@ -26,15 +26,29 @@ const getPollById = async(id) =>{
     if(!poll) return null
     return poll
 }
-const getAllPolls = async ({ offset = 0, limit = 10 } = {}) => {
+const getAllPolls = async ({ offset = 0, limit = 10, filter = 'all'} = {}) => {
+    const query = {}
+
+
+    // filter by status
+    if (filter === 'active') {
+        query.expiresAt = { $gt: new Date() }
+    } else if (filter === 'expired') {
+        query.expiresAt = { $lte: new Date() }
+    } else if (filter === 'published') {
+        query.isPublished = true
+    }
+
     const [polls, total] = await Promise.all([
-        Poll.find()
+        Poll.find(query)
             .sort({ createdAt: -1 })
             .skip(offset)
             .limit(limit)
+            .populate('user', 'name')
             .lean(),
-        Poll.countDocuments()
+        Poll.countDocuments(query)
     ])
+
     return { polls, total }
 }
 
@@ -77,7 +91,7 @@ const getPollAnylytics = async(pollId) =>{
             const options = await optionService.getOptionsByQuestion(q._id)
 
             //findinding votes for the question
-            const questionVotes = votes.filter(v => v.question.toString() === q._id.toString())
+            const questionVotes = votes.filter(v => v.question._id.toString() === q._id.toString())
 
             //total votes for that question
             const totalQuestionVotes = questionVotes.length
@@ -85,7 +99,7 @@ const getPollAnylytics = async(pollId) =>{
 
             //
             const optionsWithStats = options.map(opt => {
-                const optionVotes = questionVotes.filter(v => v.option.toString() === opt._id.toString())
+                const optionVotes = questionVotes.filter(v => v.option._id.toString() === opt._id.toString())
                 const authenticatedVotes = optionVotes.filter(v => v.user).length
                 const anonymousVotes = optionVotes.length - authenticatedVotes
 
@@ -97,7 +111,7 @@ const getPollAnylytics = async(pollId) =>{
                     anonymousVotes,
                     percentage: totalQuestionVotes === 0
                         ? 0
-                        : Math.round((optionVotes / totalQuestionVotes) * 1000) / 10
+                        : Math.round((optionVotes.length / totalQuestionVotes) * 1000) / 10
                 }
             })
             return {
@@ -123,9 +137,29 @@ const publishPoll = async (id, userId) => {
     const poll = await Poll.findById(id)
     if (!poll) throw ApiError.notfound("Poll not found")
     if (poll.user.toString() !== userId.toString()) throw ApiError.forbidden("You are not authorized")
-    poll.published = true
+    poll.isPublished = true
     await poll.save()
     return poll
 }
 
-export {createPoll,getPollById,getAllPolls,getPollWithQuestions,getPollAnylytics,publishPoll}
+
+const getPollsByUserId = async (userId,{ offset = 0, limit = 10 } = {}) => {
+
+    const [polls, total] = await Promise.all([
+
+        Poll.find({ user: userId })
+            .sort({ createdAt: -1 })
+            .skip(offset)
+            .limit(limit)
+            .lean(),
+
+        Poll.countDocuments({ user: userId })
+
+    ])
+    return {
+        polls,
+        total
+    }
+}
+
+export {createPoll,getPollById,getAllPolls,getPollWithQuestions,getPollAnylytics,publishPoll,getPollsByUserId}
