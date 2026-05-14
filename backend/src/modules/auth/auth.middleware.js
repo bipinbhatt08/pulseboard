@@ -27,6 +27,27 @@ const authenticate = async(req,res,next) =>{
     next()
 
 }
+const optionalAuthenticate = async(req,res,next) =>{
+   
+    if(!req.headers.authorization?.startsWith("Bearer")){
+       return next()
+    }
+    let token = req.headers.authorization.split(" ")[1]
+
+    const decoded =  verifyAccessToken(token)
+
+    const user  = await User.findById(decoded.id)
+
+    if(!user) throw ApiError.unAuthorized("User no longer exists")
+    
+    req.user = {
+        id: user._id,
+        email: user.email,
+        name: user.name
+    }
+
+    next()
+}
 
 
-export{authenticate}
+export{authenticate,optionalAuthenticate}
