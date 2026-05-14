@@ -18,7 +18,7 @@ const  PollCard = ({ poll }) => {
 
             <div className="poll-card-meta">
                 <span className="poll-card-questions">
-                    {poll.questions?.length ?? 0} questions
+                    {poll.user?poll.user.name:0} 
                 </span>
                 <span className="poll-card-date">
                     {new Date(poll.createdAt).toLocaleDateString()}

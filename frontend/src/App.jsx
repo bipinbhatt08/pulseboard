@@ -6,23 +6,8 @@ import PollList from "./components/PollList.jsx"
 
 
 const App = () => {
-const [user,setUser] = useState()
-
- useEffect(()=>{
-    const getUser = async () => {
-         try {
-           const userR = tokenStore.getUser()
-           setUser(userR)
-         } catch (err) {
-           console.log("ERROR:",err)
-         }
-       }
-    getUser()
-
- },[])
   return (
     <div>
-      <Navbar user={user} />
       <Hero/>
       <PollList/>
     </div>

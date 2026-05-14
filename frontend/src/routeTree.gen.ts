@@ -9,16 +9,23 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as VerifyEmailRouteImport } from './routes/Verify-email'
 import { Route as RegisterRouteImport } from './routes/Register'
 import { Route as LoginRouteImport } from './routes/Login'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PollsIndexRouteImport } from './routes/polls/index'
 import { Route as VerifyEmailTokenRouteImport } from './routes/verify-email/$token'
 import { Route as PollCreateRouteImport } from './routes/poll/create'
 import { Route as PollPollIdIndexRouteImport } from './routes/poll/$pollId/index'
 import { Route as QuestionQuestionIdOptionsAddRouteImport } from './routes/question/$questionId/options/add'
 import { Route as PollPollIdQuestionsAddRouteImport } from './routes/poll/$pollId/questions/add'
 
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VerifyEmailRoute = VerifyEmailRouteImport.update({
   id: '/Verify-email',
   path: '/Verify-email',
@@ -37,6 +44,11 @@ const LoginRoute = LoginRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PollsIndexRoute = PollsIndexRouteImport.update({
+  id: '/polls/',
+  path: '/polls/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VerifyEmailTokenRoute = VerifyEmailTokenRouteImport.update({
@@ -71,8 +83,10 @@ export interface FileRoutesByFullPath {
   '/Login': typeof LoginRoute
   '/Register': typeof RegisterRoute
   '/Verify-email': typeof VerifyEmailRoute
+  '/dashboard': typeof DashboardRoute
   '/poll/create': typeof PollCreateRoute
   '/verify-email/$token': typeof VerifyEmailTokenRoute
+  '/polls/': typeof PollsIndexRoute
   '/poll/$pollId/': typeof PollPollIdIndexRoute
   '/poll/$pollId/questions/add': typeof PollPollIdQuestionsAddRoute
   '/question/$questionId/options/add': typeof QuestionQuestionIdOptionsAddRoute
@@ -82,8 +96,10 @@ export interface FileRoutesByTo {
   '/Login': typeof LoginRoute
   '/Register': typeof RegisterRoute
   '/Verify-email': typeof VerifyEmailRoute
+  '/dashboard': typeof DashboardRoute
   '/poll/create': typeof PollCreateRoute
   '/verify-email/$token': typeof VerifyEmailTokenRoute
+  '/polls': typeof PollsIndexRoute
   '/poll/$pollId': typeof PollPollIdIndexRoute
   '/poll/$pollId/questions/add': typeof PollPollIdQuestionsAddRoute
   '/question/$questionId/options/add': typeof QuestionQuestionIdOptionsAddRoute
@@ -94,8 +110,10 @@ export interface FileRoutesById {
   '/Login': typeof LoginRoute
   '/Register': typeof RegisterRoute
   '/Verify-email': typeof VerifyEmailRoute
+  '/dashboard': typeof DashboardRoute
   '/poll/create': typeof PollCreateRoute
   '/verify-email/$token': typeof VerifyEmailTokenRoute
+  '/polls/': typeof PollsIndexRoute
   '/poll/$pollId/': typeof PollPollIdIndexRoute
   '/poll/$pollId/questions/add': typeof PollPollIdQuestionsAddRoute
   '/question/$questionId/options/add': typeof QuestionQuestionIdOptionsAddRoute
@@ -107,8 +125,10 @@ export interface FileRouteTypes {
     | '/Login'
     | '/Register'
     | '/Verify-email'
+    | '/dashboard'
     | '/poll/create'
     | '/verify-email/$token'
+    | '/polls/'
     | '/poll/$pollId/'
     | '/poll/$pollId/questions/add'
     | '/question/$questionId/options/add'
@@ -118,8 +138,10 @@ export interface FileRouteTypes {
     | '/Login'
     | '/Register'
     | '/Verify-email'
+    | '/dashboard'
     | '/poll/create'
     | '/verify-email/$token'
+    | '/polls'
     | '/poll/$pollId'
     | '/poll/$pollId/questions/add'
     | '/question/$questionId/options/add'
@@ -129,8 +151,10 @@ export interface FileRouteTypes {
     | '/Login'
     | '/Register'
     | '/Verify-email'
+    | '/dashboard'
     | '/poll/create'
     | '/verify-email/$token'
+    | '/polls/'
     | '/poll/$pollId/'
     | '/poll/$pollId/questions/add'
     | '/question/$questionId/options/add'
@@ -141,8 +165,10 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   VerifyEmailRoute: typeof VerifyEmailRoute
+  DashboardRoute: typeof DashboardRoute
   PollCreateRoute: typeof PollCreateRoute
   VerifyEmailTokenRoute: typeof VerifyEmailTokenRoute
+  PollsIndexRoute: typeof PollsIndexRoute
   PollPollIdIndexRoute: typeof PollPollIdIndexRoute
   PollPollIdQuestionsAddRoute: typeof PollPollIdQuestionsAddRoute
   QuestionQuestionIdOptionsAddRoute: typeof QuestionQuestionIdOptionsAddRoute
@@ -150,6 +176,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/Verify-email': {
       id: '/Verify-email'
       path: '/Verify-email'
@@ -176,6 +209,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/polls/': {
+      id: '/polls/'
+      path: '/polls'
+      fullPath: '/polls/'
+      preLoaderRoute: typeof PollsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/verify-email/$token': {
@@ -221,8 +261,10 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   VerifyEmailRoute: VerifyEmailRoute,
+  DashboardRoute: DashboardRoute,
   PollCreateRoute: PollCreateRoute,
   VerifyEmailTokenRoute: VerifyEmailTokenRoute,
+  PollsIndexRoute: PollsIndexRoute,
   PollPollIdIndexRoute: PollPollIdIndexRoute,
   PollPollIdQuestionsAddRoute: PollPollIdQuestionsAddRoute,
   QuestionQuestionIdOptionsAddRoute: QuestionQuestionIdOptionsAddRoute,
