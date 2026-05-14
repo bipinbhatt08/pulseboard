@@ -5,14 +5,16 @@ import Navbar from '../components/Navbar'
 import { tokenStore } from '../services/tokenStore'
 
 
- const user = tokenStore.getUser()
-const RootLayout = () => (
+const RootLayout = () => {
+  const user = tokenStore.getUser()
 
-  <>
-    <Navbar user={user}/>
-    <Outlet />
-    <TanStackRouterDevtools />
-  </>
-)
+  return (
+    <>
+      <Navbar user={user} />
+      <Outlet />
+      <TanStackRouterDevtools />
+    </>
+  )
+}
 
 export const Route = createRootRoute({ component: RootLayout,notFoundComponent: () => <NotFound /> })
