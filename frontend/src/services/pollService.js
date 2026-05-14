@@ -7,8 +7,8 @@ export const pollService = {
         const {data} = await api.post('/polls',{user:_id,title,durationUnit,durationValue,allowAnonymousResponse})
         return data
     },
-    async getAllPoll({}){
-        const {data} = await api.get('/polls')
+    async getAllPoll({ offset = 0, limit = 10 } = {}){
+        const {data} = await api.get(`/polls?offset=${offset}&limit=${limit}`)
         return data
     },
     async getPollWithQuestions (id){

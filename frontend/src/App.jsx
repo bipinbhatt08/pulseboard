@@ -2,6 +2,7 @@ import { useEffect,useState } from "react"
 import Hero from "./components/Hero.jsx"
 import Navbar from "./components/Navbar.jsx"
 import { tokenStore } from "./services/tokenStore.js"
+import PollList from "./components/PollList.jsx"
 
 
 const App = () => {
@@ -23,7 +24,7 @@ const [user,setUser] = useState()
     <div>
       <Navbar user={user} />
       <Hero/>
-
+      <PollList/>
     </div>
   )
 }
