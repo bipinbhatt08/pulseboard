@@ -4,7 +4,7 @@ import * as questionService from './question.service.js'
 export const addQuestion = async(req,res)=>{
 
     const question = await questionService.addQuestion({
-        poll:req.body.pollId,
+        poll:req.body.poll,
         text: req.body.text,
         userId: req.user.id
     })

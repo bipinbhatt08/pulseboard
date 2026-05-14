@@ -3,7 +3,8 @@ import BaseDto from "../../../common/dto/base.dto.js";
 
 class AddQuestionDto extends BaseDto {
   static schema = Joi.object({
-    text: Joi.string().required()
+    text: Joi.string().required(),
+    poll: Joi.string().required()
   });
 }
 
