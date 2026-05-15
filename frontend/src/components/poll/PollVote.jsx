@@ -69,7 +69,7 @@ const PollVote = ({ pollId }) => {
                 setPoll(pollData)
 
                 // fetch analytics if published
-                if (pollData.isPublished) {
+                if (pollData?.isPublished) {
                     const analyticsRes = await pollService.getPollAnylytics(pollId)
                     setAnalytics(analyticsRes.data)
                 }

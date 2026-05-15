@@ -2,7 +2,7 @@ import axios from 'axios'
 import { tokenStore } from './tokenStore.js'
 import { authService } from './authService.js'
 
-const BASE_URL = import.meta.env.VITE_BACKEND_URL 
+const BASE_URL = `${import.meta.env.VITE_BACKEND_URL}/api`
 export const api = axios.create({
     baseURL: BASE_URL,
     headers:{

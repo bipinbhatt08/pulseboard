@@ -5,6 +5,7 @@ import Loader from "./common/Loader.jsx";
 import "../styles/Dashboard.css";
 import { toast } from "react-toastify";
 import { tokenStore } from "../services/tokenStore.js";
+import socket from "../services/Socket.js";
 
 const StatCard = ({ label, value, color }) => (
   <div className="stat-card">
@@ -68,6 +69,32 @@ const navigate = useNavigate()
     };
     fetchPolls();
   }, [page]);
+
+useEffect(() => {
+    if (!selectedPoll) return
+
+    // set up listeners BEFORE connecting
+    socket.on('connect', () => {
+        console.log('socket connected:', socket.id)
+        socket.emit('join:poll', selectedPoll._id)
+    })
+
+    socket.on('vote:new', async (data) => {
+        console.log('vote received:', data)
+        const res = await pollService.getPollAnylytics(selectedPoll._id)
+        setAnalytics(res.data)
+    })
+
+    // connect AFTER listeners are set up
+    socket.connect()
+
+    return () => {
+        socket.off('connect')
+        socket.off('vote:new')
+        socket.disconnect()
+    }
+}, [selectedPoll])
+
 
   const selectPoll = async (poll) => {
     setSelectedPoll(poll);
