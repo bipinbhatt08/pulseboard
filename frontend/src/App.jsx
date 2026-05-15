@@ -4,6 +4,7 @@ import Hero from "./components/Hero.jsx"
 import PollList from "./components/PollList.jsx"
 import { useEffect } from "react"
 import { pollService } from "./services/pollService.js"
+import Navbar from "./components/Navbar.jsx"
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
     }, [])
   return (
     <div>
+      <Navbar/>
       <Hero total = {total}/>
       <PollList polls={polls} isLoading={isLoading} total={total}/>
       <Footer/>

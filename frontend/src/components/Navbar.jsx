@@ -2,13 +2,14 @@ import { Link, useNavigate } from '@tanstack/react-router'
 import '../styles/Navbar.css'
 import { useState, useRef, useEffect } from 'react'
 import { authService } from '../services/authService'
+import { tokenStore } from '../services/tokenStore'
 
-export default function Navbar({ user }) {
+export default function Navbar() {
     const navigate = useNavigate()
     const [showConfirm, setShowConfirm] = useState(false)
     const [showDropdown, setShowDropdown] = useState(false)
     const dropdownRef = useRef(null)
-
+const user = tokenStore.getUser()
     // close dropdown on outside click
     useEffect(() => {
         const handleOutside = (e) => {

@@ -6,6 +6,7 @@ import "../styles/Dashboard.css";
 import { toast } from "react-toastify";
 import { tokenStore } from "../services/tokenStore.js";
 import socket from "../services/Socket.js";
+import Navbar from "./Navbar.jsx";
 
 const StatCard = ({ label, value, color }) => (
   <div className="stat-card">
@@ -137,6 +138,7 @@ useEffect(() => {
   if (isLoading) return <Loader text="Loading dashboard..." />;
   return (
     <>
+    <Navbar/>
       <div className="dashboard">
         <div className="dashboard-inner">
 

@@ -4,6 +4,7 @@ import { pollService } from '../services/pollService.js'
 import Loader from '../components/common/Loader.jsx'
 import PollCard from '../components/PollCard.jsx'
 import '../styles/PollList.css'
+import Navbar from './Navbar.jsx'
 
 const LIMIT = 9
 
@@ -39,6 +40,9 @@ const PollsPage = () => {
     }
 
     return (
+
+       <>
+       <Navbar/>
         <div className="polls-page">
             <div className="container">
 
@@ -105,6 +109,7 @@ const PollsPage = () => {
                 )}
             </div>
         </div>
+       </>
     )
 }
 
