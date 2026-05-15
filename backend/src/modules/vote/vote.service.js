@@ -61,3 +61,7 @@ export const getVotesByPoll = async (pollId) => {
         .lean()
     return votes
 }
+export const getVoteCount = async ()=>{
+    const count = await Vote.countDocuments()
+    return count
+}

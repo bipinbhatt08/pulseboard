@@ -30,5 +30,9 @@ export const authService = {
     async verifyEmail(token){
         const {data} = await api.get(`/auth/verify-email/${token}`)
         return data.data
+    },
+    async getUserCount (){
+        const {data} = await api.get('/auth/count')
+        return data
     }
 }

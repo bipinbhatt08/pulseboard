@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import '../styles/Hero.css'
 
-export default function Hero({total}) {
+export default function Hero({total,voteTotal,userTotal}) {
     return (
         <section className="hero">
             <div className="hero-inner">
@@ -26,12 +26,12 @@ export default function Hero({total}) {
                     </div>
                     <div className="hero-stat-divider" />
                     <div className="hero-stat">
-                        <span className="stat-number">98k+</span>
+                        <span className="stat-number">{voteTotal}+</span>
                         <span className="stat-label">Votes Cast</span>
                     </div>
                     <div className="hero-stat-divider" />
                     <div className="hero-stat">
-                        <span className="stat-number">4.2k+</span>
+                        <span className="stat-number">{userTotal}+</span>
                         <span className="stat-label">Active Users</span>
                     </div>
                 </div>

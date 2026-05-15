@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { pollService } from '../services/pollService'
 import Loader from './common/Loader'
 import '../styles/PollList.css'
 import PollCard from './PollCard.jsx'
@@ -16,7 +14,9 @@ const PollList = ({polls,isLoading,total}) => {
             <div className="container">
                 <div className="poll-list-header">
                     <h2 className="poll-list-title">Active Polls</h2>
-                    <span className="poll-list-count">{total} polls</span>
+                    {polls && <Link to="/polls" className="poll-list-count" >
+                            See all {total}polls →
+                        </Link>}
                 </div>
 
                 {polls.length === 0 ? (
@@ -27,7 +27,7 @@ const PollList = ({polls,isLoading,total}) => {
                         </Link>
                     </div>
                 ) : (
-                    <div className="poll-grid">
+                        <div className="poll-grid">
                         {polls.map(poll => (
                             <PollCard key={poll._id} poll={poll} />
                         ))}

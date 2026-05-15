@@ -24,3 +24,8 @@ export const getVotesByPoll = async (req, res) => {
     const votes = await voteService.getVotesByPoll(pollId)
     ApiResponse.ok(res, "Votes fetched successfully", votes)
 }
+
+export const getVoteCount = async(req,res) =>{
+    const count =  await voteService.getVoteCount()
+    ApiResponse.ok(res,"Vout count fetched successfully",count)
+}

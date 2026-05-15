@@ -17,6 +17,6 @@ router.put('/reset-password/:token',validate(ResetPasswordDto),controller.resetP
 router.get('/me',authenticate,controller.getMe)//authenticate is a function
 router.get('/verify-email/:token',controller.verifyEmail)
 router.post("/refresh", controller.refreshToken);
-
+router.get('/count',controller.getAllUserCount)
 
 export default router

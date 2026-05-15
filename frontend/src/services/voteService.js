@@ -9,5 +9,9 @@ export const voteService = {
     async getVotesByPoll(pollId){
         const {data} = await api.get(`/votes/poll/${pollId}`)
         return data
+    },
+    async getVoteCount(){
+        const {data} = await api.get('./votes/count')
+        return data
     }
 }

@@ -50,6 +50,10 @@ const verifyEmail = async(req,res) =>{
     ApiResponse.ok(res,"Email verified")
 }
 
+const getAllUserCount = async(req,res) =>{
+    const count = await authService.getAllUserCount()
+    ApiResponse.ok(res,"User count fetched successfully",count)
+}
 
 
-export { register,login,logout,verifyEmail,getMe,refreshToken,resetPassword,forgotPassword}
+export { register,login,logout,verifyEmail,getMe,refreshToken,resetPassword,forgotPassword,getAllUserCount}

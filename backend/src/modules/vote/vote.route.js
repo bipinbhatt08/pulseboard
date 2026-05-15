@@ -12,4 +12,6 @@ router.post('/', validate(CastVoteDto),optionalAuthenticate, controller.castVote
 // only poll creator should see votes
 router.get('/polls/:pollId/', authenticate, controller.getVotesByPoll)
 
+router.get('/count',controller.getVoteCount)
+
 export default router

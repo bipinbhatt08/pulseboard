@@ -181,4 +181,9 @@ const resetPassword = async (token, newPassword) => {
   user.resetPasswordExpires = undefined;
   await user.save();
 };
-export {register,login,logout,refresh,forgotPassword,getMe,verifyEmail,resetPassword}
+
+const getAllUserCount = async()=>{
+    const count = await User.countDocuments()
+    return count
+}
+export {register,login,logout,refresh,forgotPassword,getMe,verifyEmail,resetPassword,getAllUserCount}
