@@ -4,7 +4,7 @@ import { voteService } from '../../services/voteService'
 import { toast } from 'react-toastify'
 import { Link } from '@tanstack/react-router'
 import Loader from '../common/Loader.jsx'
-import Countdown from '../common/CountDown.jsx'
+import Countdown from '../common/Countdown.jsx'
 import '../../styles/PollVote.css'
 import { tokenStore } from '../../services/tokenStore'
 
