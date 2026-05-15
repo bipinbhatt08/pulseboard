@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { pollService } from "../services/pollService";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import Loader from "./common/Loader.jsx";
 import "../styles/Dashboard.css";
 import { toast } from "react-toastify";
+import { tokenStore } from "../services/tokenStore.js";
 
 const StatCard = ({ label, value, color }) => (
   <div className="stat-card">
@@ -32,6 +33,7 @@ const OptionBar = ({ option }) => (
 );
 
 const Dashboard = () => {
+    const user = tokenStore.getUser()
   const [polls, setPolls] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedPoll, setSelectedPoll] = useState(null);
@@ -45,11 +47,14 @@ const LIMIT = 5
 const totalPages = Math.ceil(totalPolls / LIMIT)
 
   const isExpired = selectedPoll ? new Date() > new Date(selectedPoll.expiresAt) : false
-
+const navigator = useNavigate()
   useEffect(() => {
+        if (!user) {
+            navigator({ to: "/login" });
+            return;
+        }
     const fetchPolls = async () => {
         setIsLoading(true)
-
       try {
         const offset = (page - 1) * LIMIT
         const res = await pollService.getMyPolls({ offset, limit: LIMIT })
@@ -101,8 +106,8 @@ const totalPages = Math.ceil(totalPolls / LIMIT)
     toast.success("Poll link copied!");
   };
 
+  
   if (isLoading) return <Loader text="Loading dashboard..." />;
-
   return (
     <>
       <div className="dashboard">
