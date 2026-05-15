@@ -47,10 +47,10 @@ const LIMIT = 5
 const totalPages = Math.ceil(totalPolls / LIMIT)
 
   const isExpired = selectedPoll ? new Date() > new Date(selectedPoll.expiresAt) : false
-const navigator = useNavigate()
+const navigate = useNavigate()
   useEffect(() => {
         if (!user) {
-            navigator({ to: "/login" });
+            navigate({ to: "/login" });
             return;
         }
     const fetchPolls = async () => {
@@ -102,7 +102,7 @@ const navigator = useNavigate()
 
   const handleCopyLink = () => {
     const url = `${window.location.origin}/poll/${selectedPoll._id}`;
-    navigator.clipboard.writeText(url);
+    navigator.clipboard?.writeText(url);
     toast.success("Poll link copied!");
   };
 

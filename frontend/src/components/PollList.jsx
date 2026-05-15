@@ -6,27 +6,8 @@ import '../styles/PollList.css'
 import PollCard from './PollCard.jsx'
 
 
-const PollList = () => {
-    const [polls, setPolls] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
-    const [total, setTotal] = useState(0)
-
-    useEffect(() => {
-        const fetchPolls = async () => {
-            try {
-                
-                const res = await pollService.getAllPoll()
-                console.log(res)
-                setPolls(res.data.polls)
-                setTotal(res.data.total)
-            } catch (err) {
-                console.error(err)
-            } finally {
-                setIsLoading(false)
-            }
-        }
-        fetchPolls()
-    }, [])
+const PollList = ({polls,isLoading,total}) => {
+   
 
     if (isLoading) return <Loader text="Loading polls..." />
 
@@ -51,8 +32,12 @@ const PollList = () => {
                             <PollCard key={poll._id} poll={poll} />
                         ))}
                     </div>
+
+
                 )}
+                
             </div>
+            
         </section>
     )
 }

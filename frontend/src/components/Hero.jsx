@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import '../styles/Hero.css'
 
-export default function Hero() {
+export default function Hero({total}) {
     return (
         <section className="hero">
             <div className="hero-inner">
@@ -21,7 +21,7 @@ export default function Hero() {
 
                 <div className="hero-stats">
                     <div className="hero-stat">
-                        <span className="stat-number">12k+</span>
+                        <span className="stat-number">{total}+</span>
                         <span className="stat-label">Polls Created</span>
                     </div>
                     <div className="hero-stat-divider" />

@@ -37,6 +37,10 @@ const getAllPolls = async ({ offset = 0, limit = 10, filter = 'all'} = {}) => {
         query.expiresAt = { $lte: new Date() }
     } else if (filter === 'published') {
         query.isPublished = true
+    }else if(filter === 'annonymous'){
+        query.allowAnonymousResponse = true
+    }else if(filter === 'authenticated'){
+        query.allowAnonymousResponse = false
     }
 
     const [polls, total] = await Promise.all([
@@ -57,9 +61,7 @@ const getPollWithQuestions = async (id) => {
     const poll = await Poll.findById(id).lean()
     if (!poll) throw ApiError.notfound("Poll not found")
 
-    if (new Date() > new Date(poll.expiresAt)) {
-        throw ApiError.badRequest("Poll has expired")
-    }
+    
 
     const questions = await questionService.getQuestionsByPoll(id)
 

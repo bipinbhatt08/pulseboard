@@ -1,4 +1,5 @@
 
+import ApiError from '../../common/utils/api-error.js'
 import ApiResponse from '../../common/utils/api-response.js'
 import * as pollService from './poll.service.js'
 
@@ -28,6 +29,18 @@ const getPollWithQuestions = async (req, res) => {
 
 const getPollAnalytics = async (req, res) => {
     const { pollId } = req.params
+
+    const poll = await pollService.getPollById(pollId)
+    
+    if (!poll) throw ApiError.notfound("Poll not found")
+    
+    // only allow if published OR if user is the owner
+    const isOwner = req.user?.id && poll.user.toString() === req.user.id.toString()
+    
+    if (!poll.isPublished && !isOwner) {
+        throw ApiError.forbidden("Analytics not available yet")
+    }
+
     const analytics = await pollService.getPollAnylytics(pollId)
     ApiResponse.ok(res, "Analytics fetched successfully", analytics)
 }

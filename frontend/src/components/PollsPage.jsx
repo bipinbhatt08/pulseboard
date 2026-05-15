@@ -52,7 +52,7 @@ const PollsPage = () => {
 
                 {/* Filter tabs ← add */}
                 <div className="poll-filters">
-                    {['all', 'active', 'expired', 'published'].map(f => (
+                    {['all', 'active', 'expired', 'published','annonymous','authenticated'].map(f => (
                         <button
                             key={f}
                             className={`poll-filter-btn ${filter === f ? 'poll-filter-btn--active' : ''}`}
