@@ -11,7 +11,7 @@ import cors from 'cors'
 const app = express()
 
 app.use(cors({
-    origin: process.env.CLIENT_ID,
+    origin: process.env.CLIENT_URL,
     credentials: true  // needed if you're sending cookies/auth headers
 }))
 app.use(express.json())

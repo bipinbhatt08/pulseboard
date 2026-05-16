@@ -1,38 +1,25 @@
-import nodemailer from "nodemailer"
-
-// Create a transporter using SMTP
-const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT) || 587,
-    secure: false,  
-    requireTLS: true,  
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-    },
-})
-
-
-
-
-
-const sendMail = async(to,subject,html) => {
-  
- try {
-     await transporter.sendMail({
-       from: `${process.env.SMTP_FROM_EMAIL}`,
-       to,subject,html
-     })
-     console.log("Email send to :",to)
-     console.log("SMTP HOST:", process.env.SMTP_HOST);
-console.log("SMTP USER:", process.env.SMTP_USER);
- } catch (error) {
-    console.log("Email error:",error.message)
- }
+import axios from 'axios'
+const sendMail = async (to, subject, html) => {
+    try {
+        await axios.post('https://api.brevo.com/v3/smtp/email', {
+            sender: { email: process.env.SMTP_FROM_EMAIL },
+            to: [{ email: to }],
+            subject,
+            htmlContent: html
+        }, {
+            headers: {
+                'api-key': process.env.BREVO_API_KEY,
+                'Content-Type': 'application/json'
+            }
+        })
+        console.log("Email sent to:", to)
+    } catch (error) {
+        console.log("Email error:", error.response?.data || error.message)
+    }
 }
 
 const sendVerificationEmail = async(email,name,token) => {
-  const url = `${process.env.CLIENT_ID}/verify-email/${token}`
+  const url = `${process.env.CLIENT_URL}/verify-email/${token}`
     const html = `
       <html>
         <body>
@@ -45,7 +32,7 @@ const sendVerificationEmail = async(email,name,token) => {
   sendMail(email,"Verify your email",html)
 }
 const sendResetPasswordEmail = async(email,name,token) => {
-  const url = `${process.env.CLIENT_ID}/reset-password/${token}`
+  const url = `${process.env.CLIENT_URL}/reset-password/${token}`
     const html = `
       <html>
         <body>
