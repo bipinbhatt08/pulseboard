@@ -40,7 +40,7 @@ const userSchema = new Schema({
         select: false
     },
     resetPasswordExpires:{
-        type: String,
+        type: Date,
         select: false
     },
 
