@@ -40,13 +40,13 @@
 }
 
 .verify-icon--success {
-    background: rgba(62, 207, 142, 0.12);
+    background: oklch(0.723 0.19 149.579 / 0.12);
     border: 1px solid var(--success);
     color: var(--success);
 }
 
 .verify-icon--error {
-    background: rgba(242, 95, 92, 0.12);
+    background: oklch(0.704 0.191 22.216 / 0.12);
     border: 1px solid var(--danger);
     color: var(--danger);
 }

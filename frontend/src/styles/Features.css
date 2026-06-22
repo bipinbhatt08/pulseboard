@@ -1,0 +1,101 @@
+.features-section {
+    padding: var(--space-xl) 0;
+    border-top: 1px solid var(--border);
+}
+
+/* ── Bento grid: 4 columns ── */
+/* Row 1: [wide - 2col] [small] [small]   → 2+1+1 = 4 */
+/* Row 2: [small] [small] [wide - 2col]   → 1+1+2 = 4 */
+.features-bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+}
+
+/* ── Base card ── */
+.feature-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.feature-card:hover {
+    border-color: oklch(0.45 0.085 224.283 / 0.45);
+    transform: translateY(-3px);
+}
+
+/* ── Wide card (index 0 and 5) ── */
+.feature-card--wide {
+    grid-column: span 2;
+    background: linear-gradient(
+        135deg,
+        oklch(0.45 0.085 224.283 / 0.08) 0%,
+        oklch(0.715 0.143 215.221 / 0.05) 100%
+    );
+    border-color: oklch(0.45 0.085 224.283 / 0.2);
+}
+
+.feature-card--wide .feature-icon {
+    font-size: 30px;
+}
+
+.feature-card--wide .feature-card-title {
+    font-size: 17px;
+}
+
+.feature-card--wide .feature-card-desc {
+    max-width: 420px;
+}
+
+/* ── Content ── */
+.feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.feature-card--wide .feature-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.feature-card-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.feature-card-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+}
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+    .features-bento {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .feature-card--wide {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 480px) {
+    .features-bento {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-card--wide {
+        grid-column: span 1;
+    }
+}

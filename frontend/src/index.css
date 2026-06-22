@@ -4,25 +4,25 @@
 
 /* ── Tokens ── */
 :root {
-  /* Colors */
-  --primary: #4F7EF7;
-  --primary-hover: #3a6be0;
-  --primary-light: #4F7EF715;
+  /* Colors — dark theme from shadcn palette (oklch) */
+  --primary: oklch(0.45 0.085 224.283);
+  --primary-hover: oklch(0.38 0.085 224.283);
+  --primary-light: oklch(0.45 0.085 224.283 / 0.12);
 
-  --bg: #0f1117;
-  --bg-card: #1a1d27;
-  --bg-input: #13151f;
+  --bg: oklch(0.145 0 0);
+  --bg-card: oklch(0.205 0 0);
+  --bg-input: oklch(0.174 0 0);
 
-  --border: #2a2d3a;
-  --border-focus: #4F7EF7;
+  --border: oklch(1 0 0 / 10%);
+  --border-focus: oklch(0.715 0.143 215.221);
 
-  --text-primary: #f0f2ff;
-  --text-secondary: #8b8fa8;
-  --text-muted: #555870;
+  --text-primary: oklch(0.985 0 0);
+  --text-secondary: oklch(0.708 0 0);
+  --text-muted: oklch(0.556 0 0);
 
-  --success: #3ecf8e;
-  --warning: #f5a623;
-  --danger: #f25f5c;
+  --success: oklch(0.723 0.19 149.579);
+  --warning: oklch(0.879 0.169 91.605);
+  --danger: oklch(0.704 0.191 22.216);
 
   /* Spacing */
   --space-xs: 4px;
@@ -37,7 +37,7 @@
   --radius-lg: 20px;
 
   /* Shadow */
-  --shadow-card: 0 4px 24px rgba(0,0,0,0.3);
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
 }
 
 /* ── Reset ── */
@@ -146,6 +146,37 @@ button {
 .text-success { color: var(--success); }
 .text-danger  { color: var(--danger);  }
 .text-warning { color: var(--warning); }
+
+/* ── Skeleton shimmer ── */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.skeleton {
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--bg-input) 25%,
+    var(--bg-card)  50%,
+    var(--bg-input) 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+
+/* Skeleton sizes used across components */
+.skeleton-stat    { display: block; width: 56px; height: 28px; border-radius: var(--radius-sm); }
+.skeleton-badge   { display: block; width: 72px; height: 20px; border-radius: 999px; }
+.skeleton-title   { display: block; width: 100%; height: 18px; }
+.skeleton-title--short { width: 60%; }
+.skeleton-text    { display: block; width: 80px; height: 13px; }
+.skeleton-btn     { display: block; width: 100%; height: 36px; border-radius: var(--radius-sm); }
+
+/* Poll card skeleton layout helpers */
+.poll-card-skeleton { gap: var(--space-md); pointer-events: none; }
+.skeleton-row       { display: flex; gap: var(--space-sm); }
+.skeleton-meta      { justify-content: space-between; margin-top: auto; }
 /* add to index.css */
 .poll-center {
     min-height: calc(100vh - 62px);

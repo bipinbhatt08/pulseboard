@@ -1,12 +1,32 @@
 .poll-list-section {
     padding: var(--space-xl) 0;
+    border-top: 1px solid var(--border);
 }
 
 .poll-list-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     margin-bottom: var(--space-lg);
+}
+
+.poll-list-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--success);
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+}
+
+.poll-list-live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--success);
+    animation: ping 1.8s ease infinite;
 }
 
 .poll-list-title {
@@ -73,13 +93,13 @@
 }
 
 .status--active {
-    background: rgba(62, 207, 142, 0.12);
+    background: oklch(0.723 0.19 149.579 / 0.12);
     color: var(--success);
     border: 1px solid var(--success);
 }
 
 .status--expired {
-    background: rgba(242, 95, 92, 0.1);
+    background: oklch(0.704 0.191 22.216 / 0.1);
     color: var(--danger);
     border: 1px solid var(--danger);
 }

@@ -44,7 +44,7 @@
     border-radius: 999px;
     background: var(--primary-light);
     color: var(--primary);
-    border: 1px solid rgba(79, 126, 247, 0.25);
+    border: 1px solid oklch(0.45 0.085 224.283 / 0.25);
 }
 
 .poll-live-badge {
@@ -82,7 +82,7 @@
 .poll-results-banner--live {
     color: var(--danger);
     border-color: var(--danger);
-    background: rgba(242, 95, 92, 0.05);
+    background: oklch(0.704 0.191 22.216 / 0.05);
 }
 
 /* ── Divider ── */
@@ -123,7 +123,7 @@
 }
 
 .poll-question-card:has(.poll-option--selected) {
-    border-color: rgba(79, 126, 247, 0.4);
+    border-color: oklch(0.45 0.085 224.283 / 0.4);
 }
 
 .poll-question-header {
@@ -217,7 +217,7 @@
 .poll-option--selected .poll-option-dot {
     border-color: var(--primary);
     background: var(--primary);
-    box-shadow: 0 0 0 3px rgba(79, 126, 247, 0.15);
+    box-shadow: 0 0 0 3px oklch(0.45 0.085 224.283 / 0.15);
 }
 
 /* ── Result Options ── */
@@ -233,7 +233,7 @@
 }
 
 .result-option--winner {
-    border-color: rgba(79, 126, 247, 0.4);
+    border-color: oklch(0.45 0.085 224.283 / 0.4);
     background: var(--primary-light);
 }
 

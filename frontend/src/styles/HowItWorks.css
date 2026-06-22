@@ -1,0 +1,148 @@
+.hiw-section {
+    padding: var(--space-xl) 0;
+    border-top: 1px solid var(--border);
+}
+
+/* ── Shared section label (also used in Features) ── */
+.section-label {
+    font-family: 'Sora', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: var(--space-sm);
+}
+
+.section-title {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+/* ── Timeline grid ── */
+.hiw-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    position: relative;
+}
+
+/* Connecting dashed line — spans circle centres of col 1 → col 3 */
+.hiw-steps::before {
+    content: '';
+    position: absolute;
+    top: 23px;                      /* centre of 48px circle */
+    left: calc(100% / 6);           /* centre of col 1 */
+    right: calc(100% / 6);          /* centre of col 3 */
+    border-top: 1px dashed var(--border);
+    z-index: 0;
+}
+
+/* ── Each step ── */
+.hiw-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 var(--space-lg);
+}
+
+/* Step label + circle */
+.hiw-top {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: var(--space-lg);
+}
+
+.hiw-step-num {
+    font-family: 'Sora', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.hiw-circle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 6px oklch(0.45 0.085 224.283 / 0.12), 0 0 0 1px var(--border);
+}
+
+/* Content below circle */
+.hiw-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.hiw-step-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.hiw-step-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    max-width: 240px;
+}
+
+/* ── Mobile: vertical stack ── */
+@media (max-width: 640px) {
+    .hiw-steps {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+    }
+
+    /* Vertical connector line */
+    .hiw-steps::before {
+        top: 0;
+        bottom: 0;
+        left: 23px;
+        right: auto;
+        width: 1px;
+        border-top: none;
+        border-left: 1px dashed var(--border);
+    }
+
+    .hiw-step {
+        flex-direction: row;
+        align-items: flex-start;
+        text-align: left;
+        gap: var(--space-lg);
+        padding: 0;
+    }
+
+    .hiw-top {
+        margin-bottom: 0;
+        flex-shrink: 0;
+        gap: 4px;
+    }
+
+    .hiw-body {
+        align-items: flex-start;
+    }
+
+    .hiw-step-desc {
+        max-width: 100%;
+    }
+}

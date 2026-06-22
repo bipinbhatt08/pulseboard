@@ -1,0 +1,1 @@
+import{n as e}from"./authService-DtwGUzKT.js";var t={async casteVote({poll:t,question:n,option:r,anonymousId:i}){let{data:a}=await e.post(`/votes`,{poll:t,question:n,option:r,anonymousId:i});return a},async getVotesByPoll(t){let{data:n}=await e.get(`/votes/poll/${t}`);return n},async getVoteCount(){let{data:t}=await e.get(`./votes/count`);return t}};export{t};

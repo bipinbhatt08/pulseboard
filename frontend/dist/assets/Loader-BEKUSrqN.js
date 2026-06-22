@@ -1,0 +1,1 @@
+import{o as e}from"./link-DCosAN9m.js";var t=e(),n=({text:e=`Loading...`})=>(0,t.jsxs)(`div`,{className:`poll-center`,children:[(0,t.jsx)(`div`,{className:`verify-spinner`}),(0,t.jsx)(`p`,{className:`poll-loading-text`,children:e})]});export{n as t};

@@ -1,0 +1,104 @@
+.home-cta {
+    position: relative;
+    overflow: hidden;
+    margin-top: var(--space-xl);
+
+    /* full-bleed gradient — breaks the dark page monotony */
+    background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, oklch(0.45 0.085 224.283 / 0.35) 0%, transparent 70%),
+        linear-gradient(160deg, oklch(0.22 0.04 230) 0%, oklch(0.16 0.02 240) 60%, oklch(0.145 0 0) 100%);
+    border-top: 1px solid oklch(0.45 0.085 224.283 / 0.2);
+}
+
+/* dot grid overlay */
+.home-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, oklch(1 0 0 / 0.04) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+}
+
+.home-cta-inner {
+    position: relative;
+    z-index: 1;
+    padding: 88px var(--space-lg);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.home-cta-eyebrow {
+    font-family: 'Sora', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: oklch(0.715 0.143 215.221);
+}
+
+.home-cta-title {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(28px, 4.5vw, 44px);
+    font-weight: 700;
+    color: oklch(0.97 0 0);
+    letter-spacing: -1px;
+    line-height: 1.15;
+}
+
+.home-cta-sub {
+    font-size: 15px;
+    color: oklch(0.75 0 0);
+    max-width: 380px;
+    line-height: 1.65;
+    margin-bottom: var(--space-sm);
+}
+
+/* CTA buttons row */
+.home-cta-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Inverted primary — white bg, dark text */
+.cta-btn-primary {
+    background: oklch(0.97 0 0);
+    color: oklch(0.145 0 0);
+    padding: 13px 30px;
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Sora', sans-serif;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.cta-btn-primary:hover {
+    background: #fff;
+    transform: translateY(-2px);
+    color: oklch(0.145 0 0);
+}
+
+/* Ghost — white border */
+.cta-btn-ghost {
+    color: oklch(0.85 0 0);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.cta-btn-ghost:hover {
+    color: #fff;
+}
