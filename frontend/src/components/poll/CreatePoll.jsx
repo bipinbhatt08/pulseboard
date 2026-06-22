@@ -41,7 +41,7 @@ const CreatePoll = () => {
               Pulse<span>Board</span>
             </Link>
             <h1 className="auth-title">Create a Poll</h1>
-            <p className="auth-sub">Give it a nice name.</p>
+            <p className="auth-sub">Step 1 of 3 — give your poll a title and duration.</p>
           </div>
           <form onSubmit={handleSubmit(submit)} className="auth-form">
             <div className="form-field">
@@ -107,9 +107,12 @@ const CreatePoll = () => {
               className="btn-primary auth-submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Creating Poll..." : "Create Poll"}
+              {isSubmitting ? "Creating..." : "Continue →"}
             </button>
           </form>
+          <p className="auth-footer">
+            <Link to="/dashboard">← Back to Dashboard</Link>
+          </p>
         </div>
       </div>
     </>

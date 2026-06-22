@@ -40,7 +40,7 @@ const ResultsView = ({ questions }) => (
                             </div>
                             <div className="result-option-meta">
                                 <span>{opt.votes} votes</span>
-                                <span>👤 {opt.authenticatedVotes} · 👻 {opt.anonymousVotes}</span>
+                                <span>Auth {opt.authenticatedVotes} · Anon {opt.anonymousVotes}</span>
                             </div>
                         </div>
                     ))}
@@ -164,7 +164,9 @@ const PollVote = ({ pollId }) => {
                             {poll?.allowAnonymousResponse ? "Anonymous Poll" : "Login Required"}
                         </span>
                         {poll?.isPublished && (
-                            <span className="poll-live-badge">🔴 Live</span>
+                            <span className="poll-live-badge">
+                                <span className="poll-live-dot" />Live
+                            </span>
                         )}
                         {!isExpired && <Countdown expiresAt={poll?.expiresAt} />}
                         {isExpired && <span className="expired">Expired</span>}
@@ -185,7 +187,7 @@ const PollVote = ({ pollId }) => {
                 {!isExpired && poll.isPublished && (
                     <>
                         <div className="poll-results-banner poll-results-banner--live">
-                            🔴 Live Results
+                            <span className="poll-live-dot" />Live Results
                         </div>
                         <ResultsView questions={analytics?.questions} />
 

@@ -7,10 +7,11 @@ import { toast } from "react-toastify";
 import { tokenStore } from "../services/tokenStore.js";
 import socket from "../services/Socket.js";
 import Navbar from "./Navbar.jsx";
+import { IconCopy, IconExternalLink, IconBarChart } from "./common/Icons.jsx";
 
 const StatCard = ({ label, value, color }) => (
-  <div className="stat-card">
-    <span className="stat-value" style={{ color }}>{value}</span>
+  <div className="stat-card" style={{ '--stat-color': color }}>
+    <span className="stat-value">{value}</span>
     <span className="stat-label">{label}</span>
   </div>
 );
@@ -28,14 +29,15 @@ const OptionBar = ({ option }) => (
       <div className="option-bar-fill" style={{ width: `${option.percentage}%` }} />
     </div>
     <div className="option-bar-breakdown">
-      <span>👤 {option.authenticatedVotes} authenticated</span>
-      <span>👻 {option.anonymousVotes} anonymous</span>
+      <span>Auth {option.authenticatedVotes}</span>
+      <span className="breakdown-sep">·</span>
+      <span>Anon {option.anonymousVotes}</span>
     </div>
   </div>
 );
 
 const Dashboard = () => {
-    const user = tokenStore.getUser()
+  const user = tokenStore.getUser()
   const [polls, setPolls] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedPoll, setSelectedPoll] = useState(null);
@@ -44,19 +46,20 @@ const Dashboard = () => {
   const [publishing, setPublishing] = useState(false);
   const [showPublishConfirm, setShowPublishConfirm] = useState(false);
   const [page, setPage] = useState(1)
-const [totalPolls, setTotalPolls] = useState(0)
-const LIMIT = 5
-const totalPages = Math.ceil(totalPolls / LIMIT)
+  const [totalPolls, setTotalPolls] = useState(0)
+  const LIMIT = 5
+  const totalPages = Math.ceil(totalPolls / LIMIT)
 
   const isExpired = selectedPoll ? new Date() > new Date(selectedPoll.expiresAt) : false
-const navigate = useNavigate()
+  const navigate = useNavigate()
+
   useEffect(() => {
-        if (!user) {
-            navigate({ to: "/login" });
-            return;
-        }
+    if (!user) {
+      navigate({ to: "/login" });
+      return;
+    }
     const fetchPolls = async () => {
-        setIsLoading(true)
+      setIsLoading(true)
       try {
         const offset = (page - 1) * LIMIT
         const res = await pollService.getMyPolls({ offset, limit: LIMIT })
@@ -71,31 +74,26 @@ const navigate = useNavigate()
     fetchPolls();
   }, [page]);
 
-useEffect(() => {
+  useEffect(() => {
     if (!selectedPoll) return
 
-    // set up listeners BEFORE connecting
     socket.on('connect', () => {
-        console.log('socket connected:', socket.id)
-        socket.emit('join:poll', selectedPoll._id)
+      socket.emit('join:poll', selectedPoll._id)
     })
 
-    socket.on('vote:new', async (data) => {
-        console.log('vote received:', data)
-        const res = await pollService.getPollAnylytics(selectedPoll._id)
-        setAnalytics(res.data)
+    socket.on('vote:new', async () => {
+      const res = await pollService.getPollAnylytics(selectedPoll._id)
+      setAnalytics(res.data)
     })
 
-    // connect AFTER listeners are set up
     socket.connect()
 
     return () => {
-        socket.off('connect')
-        socket.off('vote:new')
-        socket.disconnect()
+      socket.off('connect')
+      socket.off('vote:new')
+      socket.disconnect()
     }
-}, [selectedPoll])
-
+  }, [selectedPoll])
 
   const selectPoll = async (poll) => {
     setSelectedPoll(poll);
@@ -134,11 +132,11 @@ useEffect(() => {
     toast.success("Poll link copied!");
   };
 
-  
   if (isLoading) return <Loader text="Loading dashboard..." />;
+
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <div className="dashboard">
         <div className="dashboard-inner">
 
@@ -161,39 +159,44 @@ useEffect(() => {
                       {new Date() > new Date(poll.expiresAt) ? "Expired" : "Active"}
                     </span>
                     {poll.isPublished && (
-                      <span className="sidebar-poll-live">🔴 Live</span>
+                      <span className="sidebar-poll-live">
+                        <span className="sidebar-live-dot" />Live
+                      </span>
                     )}
                   </div>
                 </button>
               ))}
             </div>
             {totalPages > 1 && (
-    <div className="sidebar-pagination">
-        <button
-            className="sidebar-page-btn"
-            onClick={() => setPage(p => p - 1)}
-            disabled={page === 1}
-        >
-            ←
-        </button>
-        <span className="sidebar-page-info">{page} / {totalPages}</span>
-        <button
-            className="sidebar-page-btn"
-            onClick={() => setPage(p => p + 1)}
-            disabled={page === totalPages}
-        >
-            →
-        </button>
-    </div>
-)}
+              <div className="sidebar-pagination">
+                <button
+                  className="sidebar-page-btn"
+                  onClick={() => setPage(p => p - 1)}
+                  disabled={page === 1}
+                >
+                  ←
+                </button>
+                <span className="sidebar-page-info">{page} / {totalPages}</span>
+                <button
+                  className="sidebar-page-btn"
+                  onClick={() => setPage(p => p + 1)}
+                  disabled={page === totalPages}
+                >
+                  →
+                </button>
+              </div>
+            )}
           </aside>
-
 
           {/* Main */}
           <main className="dashboard-main">
             {!selectedPoll && (
               <div className="dashboard-empty">
-                <p>Select a poll from the left to view analytics</p>
+                <div className="dashboard-empty-icon">
+                  <IconBarChart size={28} />
+                </div>
+                <p className="dashboard-empty-title">No poll selected</p>
+                <p className="dashboard-empty-sub">Choose a poll from the sidebar to view its analytics</p>
               </div>
             )}
 
@@ -215,10 +218,10 @@ useEffect(() => {
                   </div>
                   <div className="dashboard-poll-actions">
                     <button className="btn-share" onClick={handleCopyLink}>
-                      📋 Copy Link
+                      <IconCopy size={13} /> Copy Link
                     </button>
                     <Link to={`/poll/${selectedPoll._id}`} className="btn-share" target="_blank">
-                      👁 Preview
+                      <IconExternalLink size={13} /> Preview
                     </Link>
                     {!selectedPoll.isPublished ? (
                       <button
@@ -226,10 +229,13 @@ useEffect(() => {
                         onClick={() => isExpired ? handlePublish(false) : setShowPublishConfirm(true)}
                         disabled={publishing}
                       >
-                        {publishing ? "Going Live..." : "🔴 Go Live"}
+                        <span className="btn-live-dot" />
+                        {publishing ? "Going Live..." : "Go Live"}
                       </button>
                     ) : (
-                      <span className="published-badge">🔴 Live</span>
+                      <span className="published-badge">
+                        <span className="btn-live-dot" />Live
+                      </span>
                     )}
                   </div>
                 </div>

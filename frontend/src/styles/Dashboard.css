@@ -12,7 +12,7 @@
     align-items: start;
 }
 
-/* Sidebar */
+/* ── Sidebar ── */
 .dashboard-sidebar {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -32,20 +32,25 @@
 
 .sidebar-title {
     font-family: 'Sora', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--text-primary);
 }
 
 .sidebar-create {
-    font-size: 13px;
+    font-size: 12px;
+    font-weight: 600;
     color: var(--primary);
     text-decoration: none;
-    font-weight: 500;
+    padding: 4px 10px;
+    border: 1px solid oklch(0.45 0.085 224.283 / 0.4);
+    border-radius: var(--radius-sm);
+    transition: background 0.2s, color 0.2s;
 }
 
 .sidebar-create:hover {
-    color: var(--primary-hover);
+    background: oklch(0.45 0.085 224.283 / 0.1);
+    color: var(--primary);
 }
 
 .sidebar-polls {
@@ -64,7 +69,7 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    padding: var(--space-md) var(--space-lg);
+    padding: 12px var(--space-lg);
     background: transparent;
     border: none;
     border-bottom: 1px solid var(--border);
@@ -78,12 +83,12 @@
 }
 
 .sidebar-poll-item--active {
-    background: var(--primary-light);
-    border-left: 3px solid var(--primary);
+    background: oklch(0.45 0.085 224.283 / 0.07);
+    border-left: 2px solid var(--primary);
 }
 
 .sidebar-poll-title {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--text-primary);
     line-height: 1.3;
@@ -92,25 +97,46 @@
 .sidebar-poll-meta {
     display: flex;
     align-items: center;
-    gap: var(--space-xs);
+    gap: 6px;
 }
 
 .sidebar-poll-status {
-    font-size: 11px;
-    padding: 2px 6px;
+    font-size: 10px;
+    padding: 2px 7px;
     border-radius: 999px;
     font-weight: 500;
 }
 
-.sidebar-poll-published {
-    font-size: 11px;
-    color: var(--success);
+.status--active {
     background: oklch(0.723 0.19 149.579 / 0.1);
-    padding: 2px 6px;
-    border-radius: 999px;
+    color: var(--success);
 }
 
-/* Main */
+.status--expired {
+    background: oklch(0.704 0.191 22.216 / 0.1);
+    color: var(--danger);
+}
+
+.sidebar-poll-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--success);
+    letter-spacing: 0.3px;
+}
+
+.sidebar-live-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--success);
+    flex-shrink: 0;
+}
+
+/* ── Main ── */
 .dashboard-main {
     display: flex;
     flex-direction: column;
@@ -119,17 +145,46 @@
 
 .dashboard-empty {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 300px;
-    color: var(--text-muted);
-    font-size: 14px;
+    gap: var(--space-sm);
+    min-height: 320px;
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
+    text-align: center;
+    padding: var(--space-xl);
 }
 
-/* Poll header */
+.dashboard-empty-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-md);
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    margin-bottom: var(--space-xs);
+}
+
+.dashboard-empty-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.dashboard-empty-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    max-width: 280px;
+    line-height: 1.6;
+}
+
+/* ── Poll header ── */
 .dashboard-poll-header {
     display: flex;
     align-items: flex-start;
@@ -140,14 +195,14 @@
 
 .dashboard-poll-title {
     font-family: 'Sora', sans-serif;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
     color: var(--text-primary);
-    letter-spacing: -0.5px;
+    letter-spacing: -0.4px;
 }
 
 .dashboard-poll-meta {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-muted);
     margin-top: 4px;
 }
@@ -160,13 +215,18 @@
 }
 
 .btn-share {
-    padding: 8px 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
     border-radius: var(--radius-sm);
     font-size: 13px;
     font-weight: 500;
     color: var(--text-secondary);
     border: 1px solid var(--border);
+    background: var(--bg-card);
     text-decoration: none;
+    cursor: pointer;
     transition: border-color 0.2s, color 0.2s;
 }
 
@@ -176,7 +236,10 @@
 }
 
 .btn-publish {
-    padding: 8px 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 16px;
     border-radius: var(--radius-sm);
     font-size: 13px;
     font-weight: 600;
@@ -193,20 +256,40 @@
 }
 
 .btn-publish:disabled {
-    opacity: 0.6;
+    opacity: 0.55;
     cursor: not-allowed;
 }
 
 .published-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
     font-size: 13px;
+    font-weight: 600;
     color: var(--success);
-    font-weight: 500;
-    padding: 8px 14px;
-    border: 1px solid var(--success);
+    padding: 7px 14px;
+    border: 1px solid oklch(0.723 0.19 149.579 / 0.3);
     border-radius: var(--radius-sm);
+    background: oklch(0.723 0.19 149.579 / 0.07);
 }
 
-/* Stats */
+/* Pulsing live dot inside buttons */
+.btn-live-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+    animation: dash-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes dash-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.5; transform: scale(0.75); }
+}
+
+/* ── Stats ── */
 .stats-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -216,20 +299,21 @@
 .stat-card {
     background: var(--bg-card);
     border: 1px solid var(--border);
+    border-top: 2px solid var(--stat-color, var(--border));
     border-radius: var(--radius-md);
     padding: var(--space-lg);
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--space-xs);
-    text-align: center;
 }
 
 .stat-value {
     font-family: 'Sora', sans-serif;
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 700;
     line-height: 1;
+    color: var(--stat-color, var(--text-primary));
 }
 
 .stat-label {
@@ -237,7 +321,7 @@
     color: var(--text-muted);
 }
 
-/* Questions */
+/* ── Questions ── */
 .dashboard-questions {
     display: flex;
     flex-direction: column;
@@ -260,8 +344,19 @@
     gap: var(--space-sm);
 }
 
+.poll-question-number {
+    font-family: 'Sora', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--primary);
+    background: oklch(0.45 0.085 224.283 / 0.1);
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+}
+
 .dashboard-question-text {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--text-primary);
     flex: 1;
@@ -273,7 +368,7 @@
     white-space: nowrap;
 }
 
-/* Option bars */
+/* ── Option bars ── */
 .dashboard-options {
     display: flex;
     flex-direction: column;
@@ -293,7 +388,7 @@
 }
 
 .option-bar-text {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--text-primary);
     font-weight: 500;
 }
@@ -311,15 +406,15 @@
 
 .option-bar-pct {
     font-family: 'Sora', sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     color: var(--primary);
-    min-width: 40px;
+    min-width: 38px;
     text-align: right;
 }
 
 .option-bar-track {
-    height: 8px;
+    height: 6px;
     background: var(--bg-input);
     border-radius: 999px;
     overflow: hidden;
@@ -327,17 +422,24 @@
 
 .option-bar-fill {
     height: 100%;
-    background: var(--primary);
+    background: linear-gradient(90deg, var(--primary) 0%, oklch(0.715 0.143 215.221) 100%);
     border-radius: 999px;
     transition: width 0.6s ease;
 }
 
 .option-bar-breakdown {
     display: flex;
-    gap: var(--space-md);
+    align-items: center;
+    gap: 6px;
     font-size: 11px;
     color: var(--text-muted);
 }
+
+.breakdown-sep {
+    color: var(--border);
+}
+
+/* ── Pagination ── */
 .sidebar-pagination {
     display: flex;
     align-items: center;
@@ -368,7 +470,7 @@
 }
 
 .sidebar-page-btn:disabled {
-    opacity: 0.4;
+    opacity: 0.35;
     cursor: not-allowed;
 }
 

@@ -64,16 +64,16 @@ const user = tokenStore.getUser()
                                                 className="dropdown-item"
                                                 onClick={() => setShowDropdown(false)}
                                             >
-                                                📊 My Polls
+                                                My Polls
                                             </Link>
                                             <Link
                                                 to="/my-votes"
                                                 className="dropdown-item"
                                                 onClick={() => setShowDropdown(false)}
                                             >
-                                                🗳️ My Votes
+                                                My Votes
                                             </Link>
-                                           
+
                                             <div className="dropdown-divider" />
                                             <button
                                                 className="dropdown-item dropdown-item--danger"
@@ -82,7 +82,7 @@ const user = tokenStore.getUser()
                                                     setShowConfirm(true)
                                                 }}
                                             >
-                                                🚪 Logout
+                                                Logout
                                             </button>
                                         </div>
                                     )}

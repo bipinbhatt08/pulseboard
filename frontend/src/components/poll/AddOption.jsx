@@ -30,7 +30,7 @@ const AddOption = ({ questionId ,pollId}) => {
                 <div className="auth-header">
                     <Link to="/" className="auth-logo">Pulse<span>Board</span></Link>
                     <h1 className="auth-title">Add Options</h1>
-                    <p className="auth-sub">Add choices for respondents to pick from.</p>
+                    <p className="auth-sub">Step 3 of 3 — add the answer choices.</p>
                 </div>
 
                 <form onSubmit={handleSubmit(submit)} className="auth-form">
@@ -58,22 +58,20 @@ const AddOption = ({ questionId ,pollId}) => {
                         {isSubmitting ? "Adding..." : "+ Add Option"}
                     </button>
 
-                    {/* Done — go back to add more questions */}
                     <button
                         type="button"
                         className="btn-ghost auth-submit done-btn"
                         onClick={() => navigate({ to: `/poll/${pollId}/questions/add` })}
                     >
-                        Done — Add Another Question
+                        Add Another Question
                     </button>
 
-                    {/* Finish entire poll */}
                     <button
                         type="button"
                         className="btn-finish"
-                        onClick={() => navigate({ to: '/' })}
+                        onClick={() => navigate({ to: '/dashboard' })}
                     >
-                        Finish Adding →
+                        Finish & Go to Dashboard
                     </button>
 
                 </form>

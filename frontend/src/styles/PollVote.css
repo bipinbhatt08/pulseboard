@@ -48,18 +48,31 @@
 }
 
 .poll-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     font-size: 12px;
     font-weight: 600;
-    color: var(--danger);
+    color: var(--success);
     padding: 4px 10px;
-    border: 1px solid var(--danger);
+    border: 1px solid oklch(0.723 0.19 149.579 / 0.35);
     border-radius: 999px;
-    animation: pulse 2s infinite;
+    background: oklch(0.723 0.19 149.579 / 0.07);
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
+.poll-live-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--success);
+    flex-shrink: 0;
+    animation: poll-dot-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes poll-dot-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.45; transform: scale(0.7); }
 }
 
 /* ── Banners ── */
@@ -80,9 +93,12 @@
 }
 
 .poll-results-banner--live {
-    color: var(--danger);
-    border-color: var(--danger);
-    background: oklch(0.704 0.191 22.216 / 0.05);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--success);
+    border-color: oklch(0.723 0.19 149.579 / 0.3);
+    background: oklch(0.723 0.19 149.579 / 0.05);
 }
 
 /* ── Divider ── */

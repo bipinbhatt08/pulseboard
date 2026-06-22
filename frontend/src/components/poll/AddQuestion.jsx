@@ -37,7 +37,7 @@ const AddQuestion = ({pollId}) => {
                 <div className="auth-header">
                     <Link to="/" className="auth-logo">Pulse<span>Board</span></Link>
                     <h1 className="auth-title">Add a Question</h1>
-                    <p className="auth-sub">Add a question to your poll.</p>
+                    <p className="auth-sub">Step 2 of 3 — add questions to your poll.</p>
                 </div>
 
                 <form onSubmit={handleSubmit(submit)} className="auth-form">
@@ -61,9 +61,12 @@ const AddQuestion = ({pollId}) => {
                         className="btn-primary auth-submit"
                         disabled={isSubmitting}
                     >
-                        {isSubmitting ? "Adding..." : "Add Question"}
+                        {isSubmitting ? "Adding..." : "Continue →"}
                     </button>
                 </form>
+                <p className="auth-footer">
+                    <Link to="/dashboard">← Back to Dashboard</Link>
+                </p>
             </div>
         </div>
     </>

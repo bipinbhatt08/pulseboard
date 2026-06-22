@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { authService } from "../../services/authService.js";
 import { toast } from "react-toastify";
-import { Link, Navigate, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import '../../styles/Auth.css';
 import { useState } from "react";
 
@@ -12,7 +12,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { errors, isSubmitting },
   } = useForm({ mode: "onSubmit" });
 
   const submit = async (data) => {
@@ -26,8 +26,8 @@ const Login = () => {
     }
   };
 
-  const handleShowPassword =(e) => {
-    setShowPassword((prev)=>!prev)
+  const handleShowPassword = () => {
+    setShowPassword((prev) => !prev)
   }
 
   return (
@@ -65,21 +65,25 @@ const Login = () => {
           <div className="form-field">
             <label className="form-label">Password</label>
             <div className="input-wrapper">
-                <input
-                type={showPassword?"text":"password"}
+              <input
+                type={showPassword ? "text" : "password"}
                 placeholder="Min. 6 characters"
                 className={errors.password ? "input-error" : ""}
                 {...register("password", {
-                    required: "Password is required",
-                    minLength: { value: 6, message: "Password must be at least 6 characters" },
-                    maxLength: 128,
+                  required: "Password is required",
+                  minLength: { value: 6, message: "Password must be at least 6 characters" },
+                  maxLength: 128,
                 })}
-            />
-                <button type="button" className="toggle-password" onClick={handleShowPassword}>
+              />
+              <button type="button" className="toggle-password" onClick={handleShowPassword}>
                 {showPassword ? "Hide" : "Show"}
-                </button>
+              </button>
             </div>
             {errors.password && <p className="error-msg">{errors.password.message}</p>}
+          </div>
+
+          <div className="auth-forgot">
+            <Link to="/forgot-password">Forgot password?</Link>
           </div>
 
           <button

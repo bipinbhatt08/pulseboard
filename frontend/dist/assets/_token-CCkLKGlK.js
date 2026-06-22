@@ -1,1 +1,0 @@
-import{o as e}from"./link-DCosAN9m.js";import{i as t}from"./index-DJkRVYXo.js";import{t as n}from"./VerifyEmail-X-c0Dgge.js";var r=e();function i(){let{token:e}=t.useParams();return(0,r.jsx)(n,{token:e})}export{i as component};
