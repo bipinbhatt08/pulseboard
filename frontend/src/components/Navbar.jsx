@@ -8,8 +8,8 @@ export default function Navbar() {
     const navigate = useNavigate()
     const [showConfirm, setShowConfirm] = useState(false)
     const [showDropdown, setShowDropdown] = useState(false)
+    const [user, setUser] = useState(() => tokenStore.getUser())
     const dropdownRef = useRef(null)
-const user = tokenStore.getUser()
     // close dropdown on outside click
     useEffect(() => {
         const handleOutside = (e) => {
@@ -23,6 +23,7 @@ const user = tokenStore.getUser()
 
     const handleLogout = async () => {
         await authService.logout()
+        setUser(null)
         setShowConfirm(false)
         navigate({ to: '/login' })
     }
